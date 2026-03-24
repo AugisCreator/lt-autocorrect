@@ -576,58 +576,10 @@ border: 1px solid rgba(168,255,87,0.2);
 // ŽODYNAS — dažniausi lietuvių kalbos žodžiai su dažniu
 // ═══════════════════════════════════════════════════════════════
 
+// Realūs dažniai iš OpenSubtitles lt_50k korpuso (hermitdave/FrequencyWords)
+// Filtruota: tik lietuviški žodžiai (su diakritikais arba žinomi), min 3 simboliai
 const DICTIONARY = [
-  // Įvardžiai
-  ["aš", 9000], ["tu", 8500], ["jis", 7000], ["ji", 6800], ["mes", 6000],
-  ["jūs", 5500], ["jie", 5000], ["jos", 4800], ["man", 7200], ["tau", 6000],
-  ["jam", 5000], ["jai", 4800], ["mums", 4500], ["jums", 4000], ["jiems", 3800],
-  ["mane", 5500], ["tave", 5000], ["jį", 4800], ["ją", 4600],
-
-  // Veiksmažodžiai
-  ["eiti", 5000], ["einu", 4800], ["eina", 4600], ["einame", 3000], ["ėjau", 3500],
-  ["būti", 8000], ["yra", 9000], ["buvo", 7000], ["bus", 6500], ["esu", 6000],
-  ["esi", 5500], ["esame", 4000], ["buvau", 4500], ["galėti", 5000], ["galiu", 4800],
-  ["gali", 4600], ["galime", 3500], ["norėti", 4500], ["noriu", 4300], ["nori", 4200],
-  ["turti", 5500], ["turiu", 5200], ["turi", 5000], ["daryti", 4500], ["daro", 4300],
-  ["matyti", 4000], ["mato", 3800], ["sakyti", 4200], ["sako", 4000], ["kalbėti", 4000],
-  ["kalba", 3800], ["ateiti", 3500], ["ateina", 3300], ["dirbti", 4500], ["dirba", 4300],
-  ["žinoti", 4000], ["žino", 3800], ["gyventi", 4200], ["gyvena", 4000], ["rašyti", 4000],
-  ["rašo", 3800], ["skaityti", 3500], ["skaito", 3300], ["imti", 3800], ["ima", 3600],
-
-  // Daiktavardžiai
-  ["diena", 6000], ["šiandien", 7000], ["šiandieną", 5000], ["vakar", 5500], ["rytoj", 5000],
-  ["laikas", 5500], ["metai", 5000], ["namas", 4500], ["namai", 5000], ["miestas", 4500],
-  ["Lietuva", 6000], ["Vilnius", 5500], ["žmogus", 5000], ["žmonės", 4800], ["kelias",4000],
-  ["darbas", 5500], ["darbą", 5000], ["šalis", 4500], ["kalba", 5000], ["vakaras", 4500],
-  ["rytas", 4500], ["oras", 4500], ["vanduo", 4000], ["maistas", 4000], ["pinigai", 4000],
-  ["šeima", 4500], ["draugas", 4500], ["draugai", 4200], ["mokykla", 4000], ["miestelis", 3500],
-  ["gatvė", 4000], ["durys", 3800], ["langas", 3800], ["koja", 3500], ["ranka", 3800],
-  ["akis", 3800], ["galva", 3800], ["širdis", 4000], ["pirštai", 3200], ["veidas", 3500],
-  ["automobilis", 4500], ["kelionė", 4000], ["šuo", 4000], ["katė", 3800],
-  ["vaikas", 4800], ["vaikai", 4600], ["mama", 4500], ["tėtis", 4300], ["tėvai", 4500],
-
-  // Būdvardžiai
-  ["geras", 6000], ["gera", 5800], ["gražus", 5500], ["graži", 5300], ["didelis", 5000],
-  ["didelė", 4800], ["mažas", 4800], ["maža", 4600], ["naujas", 4500], ["nauja", 4300],
-  ["senas", 4200], ["sena", 4000], ["greitas", 4000], ["greita", 3800], ["lėtas", 3800],
-  ["stiprus", 4000], ["silpnas", 3800], ["šaltas", 4000], ["šiltas", 4000], ["karštas", 3800],
-  ["linksmas", 3800], ["liūdnas", 3500], ["sveikas", 4000], ["puikus", 4500], ["puiki", 4300],
-  ["skanus", 4000], ["saldus", 3800], ["blogas", 4000], ["bloga", 3800], ["teisus", 3800],
-
-  // Prieveiksmiai / jungtukų žodžiai
-  ["labai", 6500], ["daug", 6000], ["mažai", 5000], ["čia", 6500], ["ten", 6000],
-  ["tai", 8000], ["bet", 7000], ["ir", 9500], ["ar", 8000], ["ne", 8000],
-  ["taip", 7500], ["kada", 5500], ["kaip", 7000], ["kur", 6500], ["ką", 7000],
-  ["kas", 7000], ["kodėl", 5500], ["kam", 5500], ["ko", 5000], ["su", 7500],
-  ["be", 7000], ["per", 6000], ["už", 6000], ["po", 6500], ["ant", 6000],
-  ["į", 8500], ["iš", 7500], ["prie", 6000], ["apie", 6500], ["nuo", 6000],
-  ["vis", 5500], ["dar", 6000], ["jau", 6500], ["tik", 6500], ["net", 5500],
-  ["lyg", 4500], ["vėl", 5000], ["visada", 5000], ["dažnai", 4800], ["retai", 4200],
-  ["greitai", 4500], ["lėtai", 4000], ["labai", 6500], ["tikrai", 5500], ["galbūt", 4800],
-
-  // Skaičiai
-  ["vienas", 5000], ["du", 4800], ["trys", 4500], ["keturi", 4200], ["penki", 4000],
-  ["šeši", 3800], ["septyni", 3600], ["aštuoni", 3500], ["devyni", 3500], ["dešimt", 4000],
+["ir",104695],["aš",99873],["tai",91078],["kad",79829],["tu",75256],["ne",66885],["taip",62598],["jis",54703],["ką",53359],["čia",48489],["į",46101],["kaip",45959],["ar",45536],["su",45047],["man",42329],["kas",42223],["gerai",40720],["mano",36375],["bet",35426],["iš",34348],["mes",34279],["tik",29310],["tau",28655],["ji",26388],["yra",25599],["jie",23439],["tavo",22900],["jei",22855],["buvo",22431],["savo",21726],["kai",21206],["kur",21075],["jūs",20920],["mane",20861],["dar",20615],["dabar",19266],["apie",19131],["viskas",18686],["jį",18180],["tave",17916],["labai",16657],["jau",16632],["ten",15194],["turi",14778],["reikia",14683],["už",14402],["kodėl",14350],["po",14073],["nieko",13911],["dėl",13575],["per",13220],["mūsų",13157],["nors",12880],["gali",12577],["tikrai",12252],["jūsų",12213],["nori",11988],["gal",11883],["ačiū",11757],["nuo",11635],["turiu",10886],["bus",10298],["jos",10195],["manęs",9701],["būti",9617],["ją",9611],["jam",9279],["jums",9184],["mums",9181],["noriu",9176],["visi",9124],["nes",9021],["žinai",8977],["pone",8534],["žinau",8313],["tavęs",8253],["tiesiog",8239],["tą",8082],["juk",8065],["nėra",8030],["tada",8006],["daug",7995],["ant",7949],["tas",7824],["viską",7609],["iki",7480],["prie",7451],["prašau",7336],["labas",7308],["jų",7303],["nežinau",7302],["daugiau",7084],["juos",7063],["prieš",6980],["manau",6946],["vienas",6920],["galiu",6761],["mus",6398],["jus",6327],["vis",6269],["negaliu",6245],["pat",6138],["taigi",6035],["tiek",5980],["pas",5971],["net",5860],["toks",5729],["kiek",5626],["kol",5600],["mama",5552],["nei",5549],["esu",5499],["žinoma",5466],["koks",5444],["būtų",5225],["pats",5192],["niekada",5163],["esi",5083],["pasakyti",4973],["kartą",4888],["tiesa",4839],["visą",4793],["geriau",4785],["kada",4772],["atsiprašau",4771],["kuris",4762],["vieną",4737],["atrodo",4682],["jai",4678],["niekas",4674],["negali",4629],["jog",4568],["šiandien",4557],["kuo",4524],["turime",4474],["žmonės",4385],["todėl",4374],["tuo",4265],["metų",4245],["arba",4235],["jeigu",4226],["greičiau",4169],["aišku",4144],["atleisk",4130],["palauk",4128],["laiko",4123],["patinka",4065],["manai",3994],["vėl",3923],["visada",3838],["kartu",3770],["tėti",3765],["puiku",3735],["buvau",3724],["visai",3697],["sveiki",3655],["nereikia",3635],["žmogus",3556],["namo",3550],["kam",3523],["darai",3511],["tuoj",3503],["padaryti",3490],["kažkas",3480],["klausyk",3478],["sakė",3447],["jiems",3411],["eiti",3405],["geras",3294],["visus",3277],["daryti",3240],["nenoriu",3230],["irgi",3164],["sveikas",3145],["tačiau",3142],["galbūt",3097],["tokia",3044],["viena",3028],["kurie",3027],["kokia",3005],["visa",2970],["nutiko",2965],["dieną",2952],["kitą",2945],["tam",2885],["padėti",2880],["myliu",2860],["pasakyk",2820],["sako",2799],["reiškia",2798],["šis",2776],["sakiau",2775],["maniau",2756],["pinigų",2744],["tavimi",2640],["žmonių",2619],["galima",2604],["manimi",2600],["tikras",2582],["sau",2559],["bent",2559],["turbūt",2558],["nebuvo",2527],["kurį",2475],["buvai",2469],["norėjau",2464],["laikas",2450],["vyras",2445],["tėvas",2439],["norėčiau",2433],["supratau",2423],["matai",2393],["vyksta",2377],["turim",2359],["toliau",2345],["supranti",2339],["diena",2309],["vardas",2306],["paskui",2247],["neturi",2217],["tie",2215],["suprantu",2212],["duok",2210],["atgal",2177],["puikiai",2170],["lyg",2167],["darbo",2165],["malonu",2140],["ateik",2112],["kažką",2109],["darbą",2105],["liaukis",2076],["nuostabu",2069],["tikiuosi",2066],["rimtai",2057],["kuri",2048],["žino",2046],["greitai",2043],["gyvenimą",1966],["visiškai",1964],["rytoj",1957],["galėčiau",1955],["matau",1953],["mačiau",1951],["gera",1948],["pati",1915],["pinigus",1911],["galime",1899],["naktį",1894],["visų",1890],["visas",1889],["teisingai",1888],["turėjo",1881],["tėtis",1865],["tokio",1845],["sakau",1837],["tarp",1835],["tuomet",1830],["pasakė",1818],["atsitiko",1815],["turite",1813],["leisk",1809],["beveik",1806],["truputį",1788],["neturiu",1771],["tikriausiai",1762],["kartais",1761],["save",1755],["žinoti",1751],["sunku",1741],["nesu",1734],["draugas",1726],["trys",1722],["anksčiau",1716],["vėliau",1715],["turėjau",1715],["labiau",1706],["tos",1700],["vaikai",1698],["pamatyti",1695],["darbas",1681],["ilgai",1658],["vieta",1657],["visiems",1654],["nebus",1651],["nesvarbu",1638],["dvi",1615],["turėtų",1614],["gana",1609],["mergina",1609],["tiesą",1592],["vadinasi",1575],["vakar",1574],["daro",1572],["kitas",1571],["žmona",1563],["matyti",1563],["einu",1560],["kalba",1558],["nesuprantu",1544],["pasakiau",1521],["sekasi",1517],["vaikas",1512],["vietą",1492],["tikra",1485],["būsiu",1482],["nenori",1481],["einam",1480],["pasakysiu",1475],["žmones",1474],["nemanau",1469],["galite",1464],["blogai",1455],["niekad",1452],["pagalbos",1451],["mašiną",1443],["moteris",1433],["draugai",1426],["kalbi",1423],["sūnus",1421],["abu",1415],["būtent",1413],["pasikalbėti",1408],["kita",1408],["padėk",1402],["girdėjau",1400],["teisus",1392],["gyvenimas",1384],["padarė",1377],["pirma",1369],["rankas",1367],["gaila",1362],["galvą",1361],["padarei",1360],["vyrai",1358],["tiesiai",1356],["minučių",1354],["vardu",1351],["kiekvieną",1346],["negalima",1341],["laukia",1337],["gyvenimo",1333],["liko",1325],["grįžti",1320],["dienos",1316],["atrodai",1315],["vienintelis",1307],["reikėjo",1305],["ponas",1302],["kelias",1291],["nesijaudink",1277],["vieno",1273],["norite",1269],["visos",1265],["rytas",1263],["dalykas",1255],["galėtų",1255],["šalia",1254],["pirmas",1250],["namuose",1244],["atleiskite",1244],["būsi",1241],["turėčiau",1241],["matei",1239],["gero",1232],["kitaip",1226],["ramiai",1225],["vaikų",1223],["galėtum",1219],["tris",1212],["eina",1209],["klausau",1202],["mirė",1198],["kito",1194],["kiti",1194],["šeima",1190],["niekam",1190],["girdi",1188],["vandens",1180],["pagal",1177],["akis",1171],["turėtum",1163],["reikės",1163],["namų",1158],["kalbėti",1153],["visko",1152],["esame",1150],["vaikinas",1146],["norėjo",1139],["galim",1139],["šitas",1136],["radau",1136],["galėjo",1135],["savaitę",1129],["supratai",1127],["geriausias",1127],["gauti",1117],["mintis",1115],["gyventi",1107],["gyvas",1105],["žmogaus",1104],["pagaliau",1100],["padariau",1096],["namie",1095],["pavyko",1091],["gyvenime",1088],["graži",1088],["niekur",1084],["rasti",1084],["mašina",1077],["atėjo",1076],["metas",1064],["namus",1060],["keista",1055],["kurio",1054],["dėkoju",1050],["kelio",1040],["pasaulio",1039],["veikia",1037],["šeimos",1035],["ginklą",990],["merginos",989],["drauge",986],["dirbti",984],["problemų",981],["oro",976],["brangioji",971],["pinigai",964],["prašom",964],["puikus",962],["motina",961],["pakankamai",958],["pasaulį",956],["žmogų",955],["kažkur",953],["toli",951],["ranką",951],["meilės",949],["gyvenime",1088],["ranka",591],["širdis",551],["akys",476],["galva",658],["koja",450],["veidas",700],["namas",585],["namai",692],["miestas",450],["darbas",1681],["vanduo",457],["maistas",825],["šalis",486],["kelionė",400],["mokykla",543],["automobilis",400],["draugė",495],["tėvai",715],["vaikas",1512],["naujas",610],["nauja",509],["senas",740],["gražus",773],["didelis",940],["didelė",549],["mažas",887],["maža",623],["blogas",573],["bloga",592],["greitas",400],["lėtas",400],["šaltas",400],["šiltas",400],["linksmas",400],["liūdnas",400],["skanus",400],["puiki",826],["vienas",6920],["du",3751],["trys",1722],["keturi",533],["penki",543],["šeši",400],["septyni",400],["aštuoni",400],["devyni",400],["dešimt",570],["rytoj",1957],["vakaras",722],["rytas",1263],["naktis",491],["savaitę",1129],["metai",900],["darysime",500],["einame",400],["esame",1150],["buvome",652],["turime",4474],["galime",1899],["norime",499],["dirbame",400],["kalbame",400],["rašome",400],["skaitome",400],["žinome",569],["gyvename",400],["matome",524],["sakome",400],
 ];
 
 const dict = new Map(DICTIONARY.map(([w, f]) => [w.toLowerCase(), f]));
@@ -692,7 +644,10 @@ function findCandidates(inputWord, maxDist = 2, topN = 5) {
     if (dist <= maxDist) {
       const freq = dict.get(w) || 1;
       // Svertinis balas: atstumas svarbu, dažnis kaip bonus
-      const score = dist * 1000 - Math.log(freq) * 10;
+      // Atstumas dominuoja, dažnis tik sprendžia lygybę
+      // Bonus jei normalizuoti žodžiai identiški (tik diakritikų skirtumas)
+      const diacriticBonus = (normInput === normW) ? -500 : 0;
+      const score = dist * 10000 - Math.log(freq) * 10 + diacriticBonus;
       results.push({ word: w, dist, freq, score });
     }
   }
