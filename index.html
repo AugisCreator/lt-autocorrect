@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+
+<html lang="lt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LT Autocorrect Engine</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+–bg: #0e0e11;
+–surface: #17171c;
+–border: #2a2a35;
+–accent: #a8ff57;
+–accent2: #57c4ff;
+–accent3: #ff7857;
+–text: #e8e8f0;
+–muted: #5a5a72;
+–correct: #a8ff57;
+–wrong: #ff5757;
+}
+
+body {
+background: var(–bg);
+color: var(–text);
+font-family: ‘Syne’, sans-serif;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 40px 20px 80px;
+background-image:
+radial-gradient(ellipse 60% 40% at 20% 10%, rgba(168,255,87,0.04) 0%, transparent 60%),
+radial-gradient(ellipse 50% 50% at 80% 80%, rgba(87,196,255,0.04) 0%, transparent 60%);
+}
+
+header {
+text-align: center;
+margin-bottom: 48px;
+animation: fadeUp 0.6s ease both;
+}
+
+header h1 {
+font-size: clamp(2rem, 5vw, 3.5rem);
+font-weight: 800;
+letter-spacing: -1px;
+line-height: 1;
+margin-bottom: 8px;
+}
+
+header h1 span { color: var(–accent); }
+header p { color: var(–muted); font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase; }
+
+.main-card {
+width: 100%;
+max-width: 720px;
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: 20px;
+padding: 32px;
+animation: fadeUp 0.6s 0.1s ease both;
+position: relative;
+}
+
+.input-area {
+position: relative;
+margin-bottom: 16px;
+}
+
+.input-label {
+font-size: 0.75rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 10px;
+display: block;
+}
+
+#main-input {
+width: 100%;
+background: var(–bg);
+border: 1.5px solid var(–border);
+border-radius: 12px;
+color: var(–text);
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 1.15rem;
+padding: 16px 20px;
+resize: none;
+min-height: 110px;
+outline: none;
+transition: border-color 0.2s;
+line-height: 1.7;
+}
+
+#main-input:focus { border-color: var(–accent); }
+
+.suggestions-row {
+display: flex;
+gap: 8px;
+flex-wrap: wrap;
+min-height: 44px;
+align-items: center;
+margin-bottom: 24px;
+}
+
+.sug-label {
+font-size: 0.7rem;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+color: var(–muted);
+margin-right: 4px;
+}
+
+.suggestion-btn {
+background: rgba(168,255,87,0.08);
+border: 1px solid rgba(168,255,87,0.25);
+color: var(–accent);
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 0.85rem;
+padding: 6px 14px;
+border-radius: 8px;
+cursor: pointer;
+transition: all 0.15s;
+animation: popIn 0.2s ease both;
+}
+
+.suggestion-btn:hover {
+background: rgba(168,255,87,0.18);
+border-color: var(–accent);
+transform: translateY(-2px);
+}
+
+.suggestion-btn.prediction {
+background: rgba(87,196,255,0.08);
+border-color: rgba(87,196,255,0.25);
+color: var(–accent2);
+}
+.suggestion-btn.prediction:hover {
+background: rgba(87,196,255,0.18);
+border-color: var(–accent2);
+}
+
+.word-tokens {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+margin-bottom: 24px;
+min-height: 36px;
+}
+
+.token {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 0.9rem;
+padding: 4px 10px;
+border-radius: 6px;
+transition: all 0.2s;
+cursor: default;
+}
+
+.token.ok {
+background: rgba(168,255,87,0.07);
+color: var(–correct);
+border: 1px solid rgba(168,255,87,0.15);
+}
+
+.token.error {
+background: rgba(255,87,87,0.1);
+color: var(–wrong);
+border: 1px solid rgba(255,87,87,0.25);
+cursor: pointer;
+position: relative;
+}
+
+.token.error:hover { background: rgba(255,87,87,0.2); }
+
+.token.unknown {
+background: rgba(255,120,87,0.07);
+color: var(–accent3);
+border: 1px solid rgba(255,120,87,0.2);
+}
+
+.token-popup {
+position: absolute;
+bottom: calc(100% + 8px);
+left: 50%;
+transform: translateX(-50%);
+background: #1e1e28;
+border: 1px solid var(–border);
+border-radius: 10px;
+padding: 8px;
+display: flex;
+gap: 6px;
+z-index: 100;
+white-space: nowrap;
+box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.token-popup .fix-btn {
+background: rgba(168,255,87,0.12);
+border: 1px solid rgba(168,255,87,0.3);
+color: var(–accent);
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 0.8rem;
+padding: 4px 10px;
+border-radius: 6px;
+cursor: pointer;
+transition: all 0.15s;
+}
+
+.token-popup .fix-btn:hover { background: rgba(168,255,87,0.25); }
+
+.stats-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 12px;
+margin-bottom: 24px;
+}
+
+.stat-box {
+background: var(–bg);
+border: 1px solid var(–border);
+border-radius: 12px;
+padding: 14px 16px;
+text-align: center;
+}
+
+.stat-box .val {
+font-size: 1.8rem;
+font-weight: 800;
+line-height: 1;
+margin-bottom: 4px;
+}
+
+.stat-box .lbl {
+font-size: 0.65rem;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+color: var(–muted);
+}
+
+.stat-box.green .val { color: var(–correct); }
+.stat-box.red .val { color: var(–wrong); }
+.stat-box.blue .val { color: var(–accent2); }
+
+.corrected-output {
+background: var(–bg);
+border: 1px solid var(–border);
+border-radius: 12px;
+padding: 16px 20px;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 1rem;
+color: var(–text);
+min-height: 50px;
+line-height: 1.7;
+}
+
+.corrected-output .changed { color: var(–accent); font-weight: 500; }
+
+.section-title {
+font-size: 0.7rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 10px;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.section-title::after {
+content: ‘’;
+flex: 1;
+height: 1px;
+background: var(–border);
+}
+
+.mode-row {
+display: flex;
+gap: 8px;
+margin-bottom: 24px;
+}
+
+.mode-btn {
+flex: 1;
+background: var(–bg);
+border: 1px solid var(–border);
+color: var(–muted);
+font-family: ‘Syne’, sans-serif;
+font-size: 0.8rem;
+padding: 10px;
+border-radius: 10px;
+cursor: pointer;
+transition: all 0.2s;
+text-transform: uppercase;
+letter-spacing: 0.08em;
+font-weight: 700;
+}
+
+.mode-btn.active {
+border-color: var(–accent);
+color: var(–accent);
+background: rgba(168,255,87,0.06);
+}
+
+.debug-panel {
+margin-top: 16px;
+background: var(–bg);
+border: 1px solid var(–border);
+border-radius: 12px;
+padding: 16px;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 0.75rem;
+color: var(–muted);
+max-height: 160px;
+overflow-y: auto;
+display: none;
+}
+
+.debug-panel.show { display: block; }
+.debug-line { margin-bottom: 4px; }
+.debug-line .key { color: var(–accent2); }
+.debug-line .dist { color: var(–accent3); }
+
+.toggle-debug {
+background: none;
+border: 1px solid var(–border);
+color: var(–muted);
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 0.72rem;
+padding: 5px 12px;
+border-radius: 6px;
+cursor: pointer;
+transition: all 0.2s;
+margin-top: 12px;
+}
+.toggle-debug:hover { border-color: var(–accent2); color: var(–accent2); }
+
+/* ── Balso diktavimas ── */
+.voice-bar {
+display: flex;
+align-items: center;
+gap: 12px;
+background: var(–bg);
+border: 1px solid var(–border);
+border-radius: 14px;
+padding: 14px 18px;
+margin-bottom: 20px;
+transition: border-color 0.3s;
+}
+
+.voice-bar.listening {
+border-color: var(–wrong);
+background: rgba(255,87,87,0.04);
+animation: pulse-border 1.5s ease-in-out infinite;
+}
+
+.voice-bar.unsupported {
+border-color: var(–muted);
+opacity: 0.5;
+}
+
+@keyframes pulse-border {
+0%, 100% { border-color: rgba(255,87,87,0.4); }
+50% { border-color: rgba(255,87,87,1); }
+}
+
+.mic-btn {
+width: 44px;
+height: 44px;
+border-radius: 50%;
+border: none;
+background: var(–surface);
+color: var(–muted);
+font-size: 1.2rem;
+cursor: pointer;
+transition: all 0.2s;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+border: 1px solid var(–border);
+}
+
+.mic-btn:hover { background: rgba(255,87,87,0.1); color: var(–wrong); border-color: var(–wrong); }
+.mic-btn.active {
+background: var(–wrong);
+color: white;
+border-color: var(–wrong);
+box-shadow: 0 0 20px rgba(255,87,87,0.4);
+animation: mic-pulse 1s ease-in-out infinite;
+}
+
+@keyframes mic-pulse {
+0%, 100% { box-shadow: 0 0 10px rgba(255,87,87,0.3); }
+50% { box-shadow: 0 0 25px rgba(255,87,87,0.7); }
+}
+
+.voice-info {
+flex: 1;
+min-width: 0;
+}
+
+.voice-status {
+font-size: 0.8rem;
+font-weight: 700;
+letter-spacing: 0.06em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 3px;
+transition: color 0.2s;
+}
+
+.voice-bar.listening .voice-status { color: var(–wrong); }
+
+.voice-interim {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 0.8rem;
+color: rgba(168,255,87,0.5);
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+min-height: 1.2em;
+font-style: italic;
+}
+
+.waveform {
+display: flex;
+align-items: center;
+gap: 3px;
+height: 32px;
+flex-shrink: 0;
+}
+
+.wave-bar {
+width: 3px;
+background: var(–muted);
+border-radius: 2px;
+height: 8px;
+transition: background 0.2s;
+}
+
+.voice-bar.listening .wave-bar {
+background: var(–wrong);
+animation: wave 0.8s ease-in-out infinite;
+}
+
+.wave-bar:nth-child(1) { animation-delay: 0s; }
+.wave-bar:nth-child(2) { animation-delay: 0.1s; }
+.wave-bar:nth-child(3) { animation-delay: 0.2s; }
+.wave-bar:nth-child(4) { animation-delay: 0.3s; }
+.wave-bar:nth-child(5) { animation-delay: 0.2s; }
+.wave-bar:nth-child(6) { animation-delay: 0.1s; }
+.wave-bar:nth-child(7) { animation-delay: 0s; }
+
+@keyframes wave {
+0%, 100% { height: 4px; }
+50% { height: 24px; }
+}
+
+.lang-tag {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 0.7rem;
+color: var(–accent2);
+border: 1px solid rgba(87,196,255,0.2);
+background: rgba(87,196,255,0.06);
+padding: 2px 8px;
+border-radius: 4px;
+flex-shrink: 0;
+}
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+from { opacity: 0; transform: scale(0.85); }
+to { opacity: 1; transform: scale(1); }
+}
+
+.badge {
+display: inline-block;
+font-size: 0.65rem;
+font-family: ‘JetBrains Mono’, monospace;
+padding: 2px 7px;
+border-radius: 4px;
+margin-left: 6px;
+vertical-align: middle;
+background: rgba(168,255,87,0.12);
+color: var(–accent);
+border: 1px solid rgba(168,255,87,0.2);
+}
+</style>
+
+</head>
+<body>
+
+<header>
+  <h1>LT <span>Auto</span>correct</h1>
+  <p>Engine v1 · Lietuvių kalba · Prototipas</p>
+</header>
+
+<div class="main-card">
+
+  <!-- Balso diktavimas -->
+
+  <div class="voice-bar" id="voice-bar">
+    <button class="mic-btn" id="mic-btn" onclick="toggleVoice()" title="Pradėti / Sustabdyti diktavimą">
+      🎙
+    </button>
+    <div class="voice-info">
+      <div class="voice-status" id="voice-status">Paspausk mikrofono mygtuką</div>
+      <div class="voice-interim" id="voice-interim"></div>
+    </div>
+    <div class="waveform">
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+      <div class="wave-bar"></div>
+    </div>
+    <div class="lang-tag">lt-LT</div>
+  </div>
+
+  <div class="mode-row">
+    <button class="mode-btn active" id="mode-autocorrect" onclick="setMode('autocorrect')">✦ Autocorrect</button>
+    <button class="mode-btn" id="mode-predict" onclick="setMode('predict')">◈ Prediction</button>
+    <button class="mode-btn" id="mode-both" onclick="setMode('both')">⊕ Abu</button>
+  </div>
+
+<span class="input-label">Įveskite tekstą (su klaidomis arba be diakritikų)</span>
+
+  <div class="input-area">
+    <textarea id="main-input" placeholder="pvz: as einu i darba siandiena... arba: Šiandien labai grazus oras" spellcheck="false"></textarea>
+  </div>
+
+  <div id="suggestions-container" style="display:none">
+    <p class="section-title">Siūlymai dabartiniam žodžiui</p>
+    <div class="suggestions-row" id="suggestions-row"></div>
+  </div>
+
+  <p class="section-title">Žodžiai su analize</p>
+  <div class="word-tokens" id="word-tokens"></div>
+
+  <div class="stats-grid">
+    <div class="stat-box green">
+      <div class="val" id="stat-ok">0</div>
+      <div class="lbl">Teisingi</div>
+    </div>
+    <div class="stat-box red">
+      <div class="val" id="stat-err">0</div>
+      <div class="lbl">Klaidos</div>
+    </div>
+    <div class="stat-box blue">
+      <div class="val" id="stat-fix">0</div>
+      <div class="lbl">Pataisyta</div>
+    </div>
+  </div>
+
+  <p class="section-title">Pataisytas tekstas</p>
+  <div class="corrected-output" id="corrected-output">—</div>
+
+<button class="toggle-debug" onclick="toggleDebug()">[ debug: levenshtein ]</button>
+
+  <div class="debug-panel" id="debug-panel"></div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// ŽODYNAS — dažniausi lietuvių kalbos žodžiai su dažniu
+// ═══════════════════════════════════════════════════════════════
+
+const DICTIONARY = [
+  // Įvardžiai
+  ["aš", 9000], ["tu", 8500], ["jis", 7000], ["ji", 6800], ["mes", 6000],
+  ["jūs", 5500], ["jie", 5000], ["jos", 4800], ["man", 7200], ["tau", 6000],
+  ["jam", 5000], ["jai", 4800], ["mums", 4500], ["jums", 4000], ["jiems", 3800],
+  ["mane", 5500], ["tave", 5000], ["jį", 4800], ["ją", 4600],
+
+  // Veiksmažodžiai
+  ["eiti", 5000], ["einu", 4800], ["eina", 4600], ["einame", 3000], ["ėjau", 3500],
+  ["būti", 8000], ["yra", 9000], ["buvo", 7000], ["bus", 6500], ["esu", 6000],
+  ["esi", 5500], ["esame", 4000], ["buvau", 4500], ["galėti", 5000], ["galiu", 4800],
+  ["gali", 4600], ["galime", 3500], ["norėti", 4500], ["noriu", 4300], ["nori", 4200],
+  ["turti", 5500], ["turiu", 5200], ["turi", 5000], ["daryti", 4500], ["daro", 4300],
+  ["matyti", 4000], ["mato", 3800], ["sakyti", 4200], ["sako", 4000], ["kalbėti", 4000],
+  ["kalba", 3800], ["ateiti", 3500], ["ateina", 3300], ["dirbti", 4500], ["dirba", 4300],
+  ["žinoti", 4000], ["žino", 3800], ["gyventi", 4200], ["gyvena", 4000], ["rašyti", 4000],
+  ["rašo", 3800], ["skaityti", 3500], ["skaito", 3300], ["imti", 3800], ["ima", 3600],
+
+  // Daiktavardžiai
+  ["diena", 6000], ["šiandien", 7000], ["šiandieną", 5000], ["vakar", 5500], ["rytoj", 5000],
+  ["laikas", 5500], ["metai", 5000], ["namas", 4500], ["namai", 5000], ["miestas", 4500],
+  ["Lietuva", 6000], ["Vilnius", 5500], ["žmogus", 5000], ["žmonės", 4800], ["kelias",4000],
+  ["darbas", 5500], ["darbą", 5000], ["šalis", 4500], ["kalba", 5000], ["vakaras", 4500],
+  ["rytas", 4500], ["oras", 4500], ["vanduo", 4000], ["maistas", 4000], ["pinigai", 4000],
+  ["šeima", 4500], ["draugas", 4500], ["draugai", 4200], ["mokykla", 4000], ["miestelis", 3500],
+  ["gatvė", 4000], ["durys", 3800], ["langas", 3800], ["koja", 3500], ["ranka", 3800],
+  ["akis", 3800], ["galva", 3800], ["širdis", 4000], ["pirštai", 3200], ["veidas", 3500],
+  ["automobilis", 4500], ["kelionė", 4000], ["šuo", 4000], ["katė", 3800],
+  ["vaikas", 4800], ["vaikai", 4600], ["mama", 4500], ["tėtis", 4300], ["tėvai", 4500],
+
+  // Būdvardžiai
+  ["geras", 6000], ["gera", 5800], ["gražus", 5500], ["graži", 5300], ["didelis", 5000],
+  ["didelė", 4800], ["mažas", 4800], ["maža", 4600], ["naujas", 4500], ["nauja", 4300],
+  ["senas", 4200], ["sena", 4000], ["greitas", 4000], ["greita", 3800], ["lėtas", 3800],
+  ["stiprus", 4000], ["silpnas", 3800], ["šaltas", 4000], ["šiltas", 4000], ["karštas", 3800],
+  ["linksmas", 3800], ["liūdnas", 3500], ["sveikas", 4000], ["puikus", 4500], ["puiki", 4300],
+  ["skanus", 4000], ["saldus", 3800], ["blogas", 4000], ["bloga", 3800], ["teisus", 3800],
+
+  // Prieveiksmiai / jungtukų žodžiai
+  ["labai", 6500], ["daug", 6000], ["mažai", 5000], ["čia", 6500], ["ten", 6000],
+  ["tai", 8000], ["bet", 7000], ["ir", 9500], ["ar", 8000], ["ne", 8000],
+  ["taip", 7500], ["kada", 5500], ["kaip", 7000], ["kur", 6500], ["ką", 7000],
+  ["kas", 7000], ["kodėl", 5500], ["kam", 5500], ["ko", 5000], ["su", 7500],
+  ["be", 7000], ["per", 6000], ["už", 6000], ["po", 6500], ["ant", 6000],
+  ["į", 8500], ["iš", 7500], ["prie", 6000], ["apie", 6500], ["nuo", 6000],
+  ["vis", 5500], ["dar", 6000], ["jau", 6500], ["tik", 6500], ["net", 5500],
+  ["lyg", 4500], ["vėl", 5000], ["visada", 5000], ["dažnai", 4800], ["retai", 4200],
+  ["greitai", 4500], ["lėtai", 4000], ["labai", 6500], ["tikrai", 5500], ["galbūt", 4800],
+
+  // Skaičiai
+  ["vienas", 5000], ["du", 4800], ["trys", 4500], ["keturi", 4200], ["penki", 4000],
+  ["šeši", 3800], ["septyni", 3600], ["aštuoni", 3500], ["devyni", 3500], ["dešimt", 4000],
+];
+
+const dict = new Map(DICTIONARY.map(([w, f]) => [w.toLowerCase(), f]));
+const words = [...dict.keys()];
+
+// ═══════════════════════════════════════════════════════════════
+// NORMALIZACIJA — pašalinti diakritikus palyginimui
+// ═══════════════════════════════════════════════════════════════
+
+const DIACRITIC_MAP = {
+  'ą':'a','č':'c','ę':'e','ė':'e','į':'i','š':'s','ų':'u','ū':'u','ž':'z',
+  'Ą':'A','Č':'C','Ę':'E','Ė':'E','Į':'I','Š':'S','Ų':'U','Ū':'U','Ž':'Z'
+};
+
+function normalize(str) {
+  return str.toLowerCase().replace(/[ąčęėįšųūžĄČĘĖĮŠŲŪŽ]/g, c => DIACRITIC_MAP[c] || c);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LEVENSHTEIN DISTANCE
+// ═══════════════════════════════════════════════════════════════
+
+function levenshtein(a, b) {
+  if (a === b) return 0;
+  if (a.length === 0) return b.length;
+  if (b.length === 0) return a.length;
+
+  // Dinaminė programa
+  const rows = a.length + 1;
+  const cols = b.length + 1;
+  const dp = [];
+
+  for (let i = 0; i < rows; i++) {
+    dp[i] = [i];
+    for (let j = 1; j < cols; j++) {
+      if (i === 0) { dp[i][j] = j; continue; }
+      const cost = a[i-1] === b[j-1] ? 0 : 1;
+      dp[i][j] = Math.min(
+        dp[i-1][j] + 1,      // ištrynimas
+        dp[i][j-1] + 1,      // įterpimas
+        dp[i-1][j-1] + cost  // keitimas
+      );
+    }
+  }
+  return dp[rows-1][cols-1];
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PAGRINDINIS PAIEŠKOS ALGORITMAS
+// ═══════════════════════════════════════════════════════════════
+
+function findCandidates(inputWord, maxDist = 2, topN = 5) {
+  const normInput = normalize(inputWord);
+  const results = [];
+
+  for (const w of words) {
+    const normW = normalize(w);
+    // Greitas filtras — jei ilgiai labai skiriasi, praleisti
+    if (Math.abs(normInput.length - normW.length) > maxDist + 1) continue;
+
+    const dist = levenshtein(normInput, normW);
+    if (dist <= maxDist) {
+      const freq = dict.get(w) || 1;
+      // Svertinis balas: atstumas svarbu, dažnis kaip bonus
+      const score = dist * 1000 - Math.log(freq) * 10;
+      results.push({ word: w, dist, freq, score });
+    }
+  }
+
+  return results
+    .sort((a, b) => a.score - b.score)
+    .slice(0, topN);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PREDICTION — žodžiai pagal prefiksą
+// ═══════════════════════════════════════════════════════════════
+
+function getPredictions(prefix, topN = 4) {
+  const normPfx = normalize(prefix);
+  return words
+    .filter(w => normalize(w).startsWith(normPfx) && w !== prefix)
+    .sort((a, b) => (dict.get(b) || 0) - (dict.get(a) || 0))
+    .slice(0, topN);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// UI LOGIKA
+// ═══════════════════════════════════════════════════════════════
+
+let mode = 'autocorrect';
+let correctionMap = {}; // { originalWord: correctedWord }
+let fixedCount = 0;
+let debugLog = [];
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('mode-' + m).classList.add('active');
+  analyzeText();
+}
+
+function toggleDebug() {
+  document.getElementById('debug-panel').classList.toggle('show');
+}
+
+function renderDebug() {
+  const panel = document.getElementById('debug-panel');
+  panel.innerHTML = debugLog.map(l =>
+    `<div class="debug-line"><span class="key">${l.input}</span> → ${l.candidates.map(c =>
+      `<span class="dist">[d=${c.dist}]</span> ${c.word}`
+    ).join(', ')}</div>`
+  ).join('') || '<div class="debug-line">— nėra duomenų —</div>';
+}
+
+function analyzeText() {
+  const text = document.getElementById('main-input').value;
+  const tokenContainer = document.getElementById('word-tokens');
+  const correctedDiv = document.getElementById('corrected-output');
+  debugLog = [];
+
+  // Padalinti į žodžius išsaugant pozicijas
+  const parts = text.split(/(\s+|[,\.!?;:–—]+)/);
+  const wordParts = parts.map(p => ({
+    text: p,
+    isWord: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/.test(p)
+  }));
+
+  tokenContainer.innerHTML = '';
+  let corrected = [];
+  let okCount = 0, errCount = 0;
+  fixedCount = 0;
+  correctionMap = {};
+
+  for (const part of wordParts) {
+    if (!part.isWord || part.text.trim() === '') {
+      corrected.push(part.text);
+      continue;
+    }
+
+    const w = part.text;
+    const wl = w.toLowerCase();
+    const inDict = dict.has(wl);
+
+    if (inDict) {
+      okCount++;
+      corrected.push(w);
+      const tok = createToken(w, 'ok');
+      tokenContainer.appendChild(tok);
+    } else {
+      errCount++;
+      const candidates = findCandidates(wl, 2, 5);
+
+      debugLog.push({ input: w, candidates });
+
+      if (candidates.length > 0 && (mode === 'autocorrect' || mode === 'both')) {
+        const best = candidates[0];
+        const fixed = preserveCase(w, best.word);
+        correctionMap[w] = fixed;
+        fixedCount++;
+        corrected.push(fixed);
+        const tok = createToken(w, 'error', candidates.slice(0,3).map(c => c.word));
+        tokenContainer.appendChild(tok);
+      } else {
+        corrected.push(w);
+        const tok = createToken(w, 'unknown');
+        tokenContainer.appendChild(tok);
+      }
+    }
+  }
+
+  // Statistika
+  document.getElementById('stat-ok').textContent = okCount;
+  document.getElementById('stat-err').textContent = errCount;
+  document.getElementById('stat-fix').textContent = fixedCount;
+
+  // Pataisytas tekstas
+  const correctedText = corrected.join('');
+  if (correctedText.trim() === '') {
+    correctedDiv.innerHTML = '—';
+  } else {
+    let highlighted = corrected.map((p, i) => {
+      const orig = parts[i] || '';
+      if (p !== orig && orig.trim()) {
+        return `<span class="changed">${p}</span>`;
+      }
+      return p;
+    }).join('');
+    correctedDiv.innerHTML = highlighted || correctedText;
+  }
+
+  renderDebug();
+  updateLiveSuggestions();
+}
+
+function preserveCase(original, replacement) {
+  if (original[0] === original[0].toUpperCase()) {
+    return replacement[0].toUpperCase() + replacement.slice(1);
+  }
+  return replacement;
+}
+
+function createToken(word, type, suggestions = []) {
+  const tok = document.createElement('div');
+  tok.className = `token ${type}`;
+  tok.textContent = word;
+
+  if (type === 'error' && suggestions.length > 0) {
+    tok.addEventListener('click', () => {
+      // Uždaryti kitus popups
+      document.querySelectorAll('.token-popup').forEach(p => p.remove());
+
+      const popup = document.createElement('div');
+      popup.className = 'token-popup';
+      suggestions.forEach(s => {
+        const btn = document.createElement('button');
+        btn.className = 'fix-btn';
+        btn.textContent = s;
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const ta = document.getElementById('main-input');
+          // Pakeisti žodį tekste
+          const regex = new RegExp(`\\b${escapeRegex(word)}\\b`, 'g');
+          ta.value = ta.value.replace(regex, preserveCase(word, s));
+          popup.remove();
+          analyzeText();
+        };
+        popup.appendChild(btn);
+      });
+      tok.style.position = 'relative';
+      tok.appendChild(popup);
+
+      // Uždaryti paspaudus kitur
+      setTimeout(() => {
+        document.addEventListener('click', () => popup.remove(), { once: true });
+      }, 0);
+    });
+  }
+
+  return tok;
+}
+
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LIVE SUGGESTIONS — paskutinis rašomas žodis
+// ═══════════════════════════════════════════════════════════════
+
+function updateLiveSuggestions() {
+  const ta = document.getElementById('main-input');
+  const pos = ta.selectionStart;
+  const text = ta.value.substring(0, pos);
+  const match = text.match(/([a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+)$/);
+
+  const container = document.getElementById('suggestions-container');
+  const row = document.getElementById('suggestions-row');
+  row.innerHTML = '';
+
+  if (!match || match[1].length < 2) {
+    container.style.display = 'none';
+    return;
+  }
+
+  const current = match[1];
+  let shown = false;
+
+  if (mode === 'autocorrect' || mode === 'both') {
+    const candidates = findCandidates(current.toLowerCase(), 2, 4);
+    candidates.forEach(c => {
+      if (c.word !== current.toLowerCase()) {
+        const btn = createSuggBtn(c.word, 'correction', current, ta);
+        row.appendChild(btn);
+        shown = true;
+      }
+    });
+  }
+
+  if (mode === 'predict' || mode === 'both') {
+    const preds = getPredictions(current.toLowerCase(), 4);
+    preds.forEach(p => {
+      const btn = createSuggBtn(p, 'prediction', current, ta);
+      row.appendChild(btn);
+      shown = true;
+    });
+  }
+
+  container.style.display = shown ? 'block' : 'none';
+}
+
+function createSuggBtn(word, type, currentWord, textarea) {
+  const btn = document.createElement('button');
+  btn.className = `suggestion-btn ${type === 'prediction' ? 'prediction' : ''}`;
+  btn.textContent = word + (type === 'prediction' ? ' →' : '');
+  btn.onclick = () => {
+    const pos = textarea.selectionStart;
+    const text = textarea.value;
+    const before = text.substring(0, pos);
+    const after = text.substring(pos);
+    const replaced = before.replace(/([a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+)$/, preserveCase(currentWord, word));
+    textarea.value = replaced + after;
+    analyzeText();
+    textarea.focus();
+  };
+  return btn;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// BALSO DIKTAVIMAS — Web Speech API
+// ═══════════════════════════════════════════════════════════════
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null;
+let isListening = false;
+let finalTranscript = '';
+
+const voiceBar    = document.getElementById('voice-bar');
+const micBtn      = document.getElementById('mic-btn');
+const voiceStatus = document.getElementById('voice-status');
+const voiceInterim = document.getElementById('voice-interim');
+
+if (!SpeechRecognition) {
+  voiceBar.classList.add('unsupported');
+  voiceStatus.textContent = '❌ Naršyklė nepalaiko (naudok Chrome arba Safari)';
+  micBtn.disabled = true;
+  micBtn.style.opacity = '0.4';
+  micBtn.style.cursor = 'not-allowed';
+} else {
+  recognition = new SpeechRecognition();
+  recognition.lang = 'lt-LT';
+  recognition.continuous = true;      // Nepertraukia po pauzės
+  recognition.interimResults = true;  // Rodo tekstą kol dar kalba
+  recognition.maxAlternatives = 1;
+
+  recognition.onstart = () => {
+    isListening = true;
+    voiceBar.classList.add('listening');
+    micBtn.classList.add('active');
+    micBtn.textContent = '⏹';
+    voiceStatus.textContent = 'Klausomasi… kalbėk';
+    voiceInterim.textContent = '';
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+    voiceBar.classList.remove('listening');
+    micBtn.classList.remove('active');
+    micBtn.textContent = '🎙';
+    voiceStatus.textContent = 'Sustabdyta — paspausk vėl';
+    voiceInterim.textContent = '';
+    // Paleidžia analizę kai baigiama
+    analyzeText();
+  };
+
+  recognition.onerror = (e) => {
+    isListening = false;
+    voiceBar.classList.remove('listening');
+    micBtn.classList.remove('active');
+    micBtn.textContent = '🎙';
+    const errMsg = {
+      'not-allowed': '🚫 Mikrofonas užblokuotas — leisk prieigą naršyklėje',
+      'no-speech':   '🔇 Garsas negirdimas — pabandyk dar kartą',
+      'network':     '🌐 Tinklo klaida — reikia interneto',
+      'aborted':     '↩ Sustabdyta',
+    };
+    voiceStatus.textContent = errMsg[e.error] || `Klaida: ${e.error}`;
+  };
+
+  recognition.onresult = (event) => {
+    let interimText = '';
+    let newFinal = '';
+
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const transcript = event.results[i][0].transcript;
+      if (event.results[i].isFinal) {
+        newFinal += transcript + ' ';
+      } else {
+        interimText += transcript;
+      }
+    }
+
+    if (newFinal) {
+      // Pridedame prie textarea
+      const ta = document.getElementById('main-input');
+      const existing = ta.value;
+      // Jei textarea tuščia arba baigiasi tarpu — pridedame tiesiai
+      const needsSpace = existing.length > 0 && !existing.endsWith(' ') && !existing.endsWith('\n');
+      ta.value = existing + (needsSpace ? ' ' : '') + newFinal.trim() + ' ';
+      // Perkelia kursorių į galą
+      ta.selectionStart = ta.selectionEnd = ta.value.length;
+      // Paleidžia autocorrect
+      clearTimeout(debounceTimer);
+      analyzeText();
+    }
+
+    // Live preview
+    voiceInterim.textContent = interimText ? `"${interimText}"` : '';
+  };
+}
+
+function toggleVoice() {
+  if (!recognition) return;
+
+  if (isListening) {
+    recognition.stop();
+  } else {
+    // Naujam sesijai
+    try {
+      recognition.start();
+    } catch(e) {
+      // Jei jau paleistas
+      recognition.stop();
+      setTimeout(() => recognition.start(), 300);
+    }
+  }
+}
+
+// Sustabdo diktavimą jei paspaudžiama kitur (UX)
+document.getElementById('main-input').addEventListener('focus', () => {
+  if (isListening) {
+    recognition.stop();
+  }
+});
+
+
+
+const ta = document.getElementById('main-input');
+let debounceTimer;
+
+ta.addEventListener('input', () => {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(analyzeText, 250);
+  updateLiveSuggestions();
+});
+
+ta.addEventListener('keyup', updateLiveSuggestions);
+ta.addEventListener('click', updateLiveSuggestions);
+
+// Pradinė būsena
+analyzeText();
+</script>
+
+</body>
+</html>
