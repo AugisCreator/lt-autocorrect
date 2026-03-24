@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="lt">
 <head>
 <meta charset="UTF-8">
@@ -11,440 +10,439 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-–bg: #0e0e11;
-–surface: #17171c;
-–border: #2a2a35;
-–accent: #a8ff57;
-–accent2: #57c4ff;
-–accent3: #ff7857;
-–text: #e8e8f0;
-–muted: #5a5a72;
-–correct: #a8ff57;
-–wrong: #ff5757;
+  --bg: #0e0e11;
+  --surface: #17171c;
+  --border: #2a2a35;
+  --accent: #a8ff57;
+  --accent2: #57c4ff;
+  --accent3: #ff7857;
+  --text: #e8e8f0;
+  --muted: #5a5a72;
+  --correct: #a8ff57;
+  --wrong: #ff5757;
 }
 
 body {
-background: var(–bg);
-color: var(–text);
-font-family: ‘Syne’, sans-serif;
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 40px 20px 80px;
-background-image:
-radial-gradient(ellipse 60% 40% at 20% 10%, rgba(168,255,87,0.04) 0%, transparent 60%),
-radial-gradient(ellipse 50% 50% at 80% 80%, rgba(87,196,255,0.04) 0%, transparent 60%);
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 80px;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(168,255,87,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(87,196,255,0.04) 0%, transparent 60%);
 }
 
 header {
-text-align: center;
-margin-bottom: 48px;
-animation: fadeUp 0.6s ease both;
+  text-align: center;
+  margin-bottom: 48px;
+  animation: fadeUp 0.6s ease both;
 }
 
 header h1 {
-font-size: clamp(2rem, 5vw, 3.5rem);
-font-weight: 800;
-letter-spacing: -1px;
-line-height: 1;
-margin-bottom: 8px;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 8px;
 }
 
-header h1 span { color: var(–accent); }
-header p { color: var(–muted); font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase; }
+header h1 span { color: var(--accent); }
+header p { color: var(--muted); font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase; }
 
 .main-card {
-width: 100%;
-max-width: 720px;
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 20px;
-padding: 32px;
-animation: fadeUp 0.6s 0.1s ease both;
-position: relative;
+  width: 100%;
+  max-width: 720px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  animation: fadeUp 0.6s 0.1s ease both;
+  position: relative;
 }
 
 .input-area {
-position: relative;
-margin-bottom: 16px;
+  position: relative;
+  margin-bottom: 16px;
 }
 
 .input-label {
-font-size: 0.75rem;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-color: var(–muted);
-margin-bottom: 10px;
-display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: block;
 }
 
 #main-input {
-width: 100%;
-background: var(–bg);
-border: 1.5px solid var(–border);
-border-radius: 12px;
-color: var(–text);
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 1.15rem;
-padding: 16px 20px;
-resize: none;
-min-height: 110px;
-outline: none;
-transition: border-color 0.2s;
-line-height: 1.7;
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.15rem;
+  padding: 16px 20px;
+  resize: none;
+  min-height: 110px;
+  outline: none;
+  transition: border-color 0.2s;
+  line-height: 1.7;
 }
 
-#main-input:focus { border-color: var(–accent); }
+#main-input:focus { border-color: var(--accent); }
 
 .suggestions-row {
-display: flex;
-gap: 8px;
-flex-wrap: wrap;
-min-height: 44px;
-align-items: center;
-margin-bottom: 24px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-height: 44px;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
 .sug-label {
-font-size: 0.7rem;
-text-transform: uppercase;
-letter-spacing: 0.1em;
-color: var(–muted);
-margin-right: 4px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-right: 4px;
 }
 
 .suggestion-btn {
-background: rgba(168,255,87,0.08);
-border: 1px solid rgba(168,255,87,0.25);
-color: var(–accent);
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 0.85rem;
-padding: 6px 14px;
-border-radius: 8px;
-cursor: pointer;
-transition: all 0.15s;
-animation: popIn 0.2s ease both;
+  background: rgba(168,255,87,0.08);
+  border: 1px solid rgba(168,255,87,0.25);
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  animation: popIn 0.2s ease both;
 }
 
 .suggestion-btn:hover {
-background: rgba(168,255,87,0.18);
-border-color: var(–accent);
-transform: translateY(-2px);
+  background: rgba(168,255,87,0.18);
+  border-color: var(--accent);
+  transform: translateY(-2px);
 }
 
 .suggestion-btn.prediction {
-background: rgba(87,196,255,0.08);
-border-color: rgba(87,196,255,0.25);
-color: var(–accent2);
+  background: rgba(87,196,255,0.08);
+  border-color: rgba(87,196,255,0.25);
+  color: var(--accent2);
 }
 .suggestion-btn.prediction:hover {
-background: rgba(87,196,255,0.18);
-border-color: var(–accent2);
+  background: rgba(87,196,255,0.18);
+  border-color: var(--accent2);
 }
 
 .word-tokens {
-display: flex;
-flex-wrap: wrap;
-gap: 8px;
-margin-bottom: 24px;
-min-height: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  min-height: 36px;
 }
 
 .token {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 0.9rem;
-padding: 4px 10px;
-border-radius: 6px;
-transition: all 0.2s;
-cursor: default;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  cursor: default;
 }
 
 .token.ok {
-background: rgba(168,255,87,0.07);
-color: var(–correct);
-border: 1px solid rgba(168,255,87,0.15);
+  background: rgba(168,255,87,0.07);
+  color: var(--correct);
+  border: 1px solid rgba(168,255,87,0.15);
 }
 
 .token.error {
-background: rgba(255,87,87,0.1);
-color: var(–wrong);
-border: 1px solid rgba(255,87,87,0.25);
-cursor: pointer;
-position: relative;
+  background: rgba(255,87,87,0.1);
+  color: var(--wrong);
+  border: 1px solid rgba(255,87,87,0.25);
+  cursor: pointer;
+  position: relative;
 }
 
 .token.error:hover { background: rgba(255,87,87,0.2); }
 
 .token.unknown {
-background: rgba(255,120,87,0.07);
-color: var(–accent3);
-border: 1px solid rgba(255,120,87,0.2);
+  background: rgba(255,120,87,0.07);
+  color: var(--accent3);
+  border: 1px solid rgba(255,120,87,0.2);
 }
 
 .token-popup {
-position: absolute;
-bottom: calc(100% + 8px);
-left: 50%;
-transform: translateX(-50%);
-background: #1e1e28;
-border: 1px solid var(–border);
-border-radius: 10px;
-padding: 8px;
-display: flex;
-gap: 6px;
-z-index: 100;
-white-space: nowrap;
-box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e1e28;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  gap: 6px;
+  z-index: 100;
+  white-space: nowrap;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
 }
 
 .token-popup .fix-btn {
-background: rgba(168,255,87,0.12);
-border: 1px solid rgba(168,255,87,0.3);
-color: var(–accent);
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 0.8rem;
-padding: 4px 10px;
-border-radius: 6px;
-cursor: pointer;
-transition: all 0.15s;
+  background: rgba(168,255,87,0.12);
+  border: 1px solid rgba(168,255,87,0.3);
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
 }
 
 .token-popup .fix-btn:hover { background: rgba(168,255,87,0.25); }
 
 .stats-grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 12px;
-margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
 .stat-box {
-background: var(–bg);
-border: 1px solid var(–border);
-border-radius: 12px;
-padding: 14px 16px;
-text-align: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: center;
 }
 
 .stat-box .val {
-font-size: 1.8rem;
-font-weight: 800;
-line-height: 1;
-margin-bottom: 4px;
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 4px;
 }
 
 .stat-box .lbl {
-font-size: 0.65rem;
-text-transform: uppercase;
-letter-spacing: 0.1em;
-color: var(–muted);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
 }
 
-.stat-box.green .val { color: var(–correct); }
-.stat-box.red .val { color: var(–wrong); }
-.stat-box.blue .val { color: var(–accent2); }
+.stat-box.green .val { color: var(--correct); }
+.stat-box.red .val { color: var(--wrong); }
+.stat-box.blue .val { color: var(--accent2); }
 
 .corrected-output {
-background: var(–bg);
-border: 1px solid var(–border);
-border-radius: 12px;
-padding: 16px 20px;
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 1rem;
-color: var(–text);
-min-height: 50px;
-line-height: 1.7;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  color: var(--text);
+  min-height: 50px;
+  line-height: 1.7;
 }
 
-.corrected-output .changed { color: var(–accent); font-weight: 500; }
+.corrected-output .changed { color: var(--accent); font-weight: 500; }
 
 .section-title {
-font-size: 0.7rem;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-color: var(–muted);
-margin-bottom: 10px;
-display: flex;
-align-items: center;
-gap: 8px;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .section-title::after {
-content: ‘’;
-flex: 1;
-height: 1px;
-background: var(–border);
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
 }
 
 .mode-row {
-display: flex;
-gap: 8px;
-margin-bottom: 24px;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
 .mode-btn {
-flex: 1;
-background: var(–bg);
-border: 1px solid var(–border);
-color: var(–muted);
-font-family: ‘Syne’, sans-serif;
-font-size: 0.8rem;
-padding: 10px;
-border-radius: 10px;
-cursor: pointer;
-transition: all 0.2s;
-text-transform: uppercase;
-letter-spacing: 0.08em;
-font-weight: 700;
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.8rem;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
 }
 
 .mode-btn.active {
-border-color: var(–accent);
-color: var(–accent);
-background: rgba(168,255,87,0.06);
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(168,255,87,0.06);
 }
 
 .debug-panel {
-margin-top: 16px;
-background: var(–bg);
-border: 1px solid var(–border);
-border-radius: 12px;
-padding: 16px;
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 0.75rem;
-color: var(–muted);
-max-height: 160px;
-overflow-y: auto;
-display: none;
+  margin-top: 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  max-height: 160px;
+  overflow-y: auto;
+  display: none;
 }
 
 .debug-panel.show { display: block; }
 .debug-line { margin-bottom: 4px; }
-.debug-line .key { color: var(–accent2); }
-.debug-line .dist { color: var(–accent3); }
+.debug-line .key { color: var(--accent2); }
+.debug-line .dist { color: var(--accent3); }
 
 .toggle-debug {
-background: none;
-border: 1px solid var(–border);
-color: var(–muted);
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 0.72rem;
-padding: 5px 12px;
-border-radius: 6px;
-cursor: pointer;
-transition: all 0.2s;
-margin-top: 12px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 12px;
 }
-.toggle-debug:hover { border-color: var(–accent2); color: var(–accent2); }
+.toggle-debug:hover { border-color: var(--accent2); color: var(--accent2); }
 
 /* ── Balso diktavimas ── */
 .voice-bar {
-display: flex;
-align-items: center;
-gap: 12px;
-background: var(–bg);
-border: 1px solid var(–border);
-border-radius: 14px;
-padding: 14px 18px;
-margin-bottom: 20px;
-transition: border-color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s;
 }
 
 .voice-bar.listening {
-border-color: var(–wrong);
-background: rgba(255,87,87,0.04);
-animation: pulse-border 1.5s ease-in-out infinite;
+  border-color: var(--wrong);
+  background: rgba(255,87,87,0.04);
+  animation: pulse-border 1.5s ease-in-out infinite;
 }
 
 .voice-bar.unsupported {
-border-color: var(–muted);
-opacity: 0.5;
+  border-color: var(--muted);
+  opacity: 0.5;
 }
 
 @keyframes pulse-border {
-0%, 100% { border-color: rgba(255,87,87,0.4); }
-50% { border-color: rgba(255,87,87,1); }
+  0%, 100% { border-color: rgba(255,87,87,0.4); }
+  50% { border-color: rgba(255,87,87,1); }
 }
 
 .mic-btn {
-width: 44px;
-height: 44px;
-border-radius: 50%;
-border: none;
-background: var(–surface);
-color: var(–muted);
-font-size: 1.2rem;
-cursor: pointer;
-transition: all 0.2s;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-border: 1px solid var(–border);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.mic-btn:hover { background: rgba(255,87,87,0.1); color: var(–wrong); border-color: var(–wrong); }
+.mic-btn:hover { background: rgba(255,87,87,0.1); color: var(--wrong); border-color: var(--wrong); }
 .mic-btn.active {
-background: var(–wrong);
-color: white;
-border-color: var(–wrong);
-box-shadow: 0 0 20px rgba(255,87,87,0.4);
-animation: mic-pulse 1s ease-in-out infinite;
+  background: var(--wrong);
+  color: white;
+  border-color: var(--wrong);
+  box-shadow: 0 0 20px rgba(255,87,87,0.4);
+  animation: mic-pulse 1s ease-in-out infinite;
 }
 
 @keyframes mic-pulse {
-0%, 100% { box-shadow: 0 0 10px rgba(255,87,87,0.3); }
-50% { box-shadow: 0 0 25px rgba(255,87,87,0.7); }
+  0%, 100% { box-shadow: 0 0 10px rgba(255,87,87,0.3); }
+  50% { box-shadow: 0 0 25px rgba(255,87,87,0.7); }
 }
 
 .voice-info {
-flex: 1;
-min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .voice-status {
-font-size: 0.8rem;
-font-weight: 700;
-letter-spacing: 0.06em;
-text-transform: uppercase;
-color: var(–muted);
-margin-bottom: 3px;
-transition: color 0.2s;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+  transition: color 0.2s;
 }
 
-.voice-bar.listening .voice-status { color: var(–wrong); }
+.voice-bar.listening .voice-status { color: var(--wrong); }
 
 .voice-interim {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 0.8rem;
-color: rgba(168,255,87,0.5);
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-min-height: 1.2em;
-font-style: italic;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: rgba(168,255,87,0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 1.2em;
+  font-style: italic;
 }
 
 .waveform {
-display: flex;
-align-items: center;
-gap: 3px;
-height: 32px;
-flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 32px;
+  flex-shrink: 0;
 }
 
 .wave-bar {
-width: 3px;
-background: var(–muted);
-border-radius: 2px;
-height: 8px;
-transition: background 0.2s;
+  width: 3px;
+  background: var(--muted);
+  border-radius: 2px;
+  height: 8px;
+  transition: background 0.2s;
 }
 
 .voice-bar.listening .wave-bar {
-background: var(–wrong);
-animation: wave 0.8s ease-in-out infinite;
+  background: var(--wrong);
+  animation: wave 0.8s ease-in-out infinite;
 }
 
 .wave-bar:nth-child(1) { animation-delay: 0s; }
@@ -456,57 +454,73 @@ animation: wave 0.8s ease-in-out infinite;
 .wave-bar:nth-child(7) { animation-delay: 0s; }
 
 @keyframes wave {
-0%, 100% { height: 4px; }
-50% { height: 24px; }
+  0%, 100% { height: 4px; }
+  50% { height: 24px; }
 }
 
 .lang-tag {
-font-family: ‘JetBrains Mono’, monospace;
-font-size: 0.7rem;
-color: var(–accent2);
-border: 1px solid rgba(87,196,255,0.2);
-background: rgba(87,196,255,0.06);
-padding: 2px 8px;
-border-radius: 4px;
-flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--accent2);
+  border: 1px solid rgba(87,196,255,0.2);
+  background: rgba(87,196,255,0.06);
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
 }
 
 @keyframes fadeUp {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes popIn {
-from { opacity: 0; transform: scale(0.85); }
-to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .badge {
-display: inline-block;
-font-size: 0.65rem;
-font-family: ‘JetBrains Mono’, monospace;
-padding: 2px 7px;
-border-radius: 4px;
-margin-left: 6px;
-vertical-align: middle;
-background: rgba(168,255,87,0.12);
-color: var(–accent);
-border: 1px solid rgba(168,255,87,0.2);
+  display: inline-block;
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+  background: rgba(168,255,87,0.12);
+  color: var(--accent);
+  border: 1px solid rgba(168,255,87,0.2);
+}
+
+.info-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  flex-wrap: wrap;
+}
+.info-chip {
+  background: rgba(87,196,255,0.06);
+  border: 1px solid rgba(87,196,255,0.15);
+  color: var(--accent2);
+  padding: 3px 9px;
+  border-radius: 5px;
 }
 </style>
-
 </head>
 <body>
 
 <header>
   <h1>LT <span>Auto</span>correct</h1>
-  <p>Engine v1 · Lietuvių kalba · Prototipas</p>
+  <p>Engine v2 · Lietuvių kalba · Prototipas</p>
 </header>
 
 <div class="main-card">
 
   <!-- Balso diktavimas -->
-
   <div class="voice-bar" id="voice-bar">
     <button class="mic-btn" id="mic-btn" onclick="toggleVoice()" title="Pradėti / Sustabdyti diktavimą">
       🎙
@@ -533,7 +547,7 @@ border: 1px solid rgba(168,255,87,0.2);
     <button class="mode-btn" id="mode-both" onclick="setMode('both')">⊕ Abu</button>
   </div>
 
-<span class="input-label">Įveskite tekstą (su klaidomis arba be diakritikų)</span>
+  <span class="input-label">Įveskite tekstą (su klaidomis arba be diakritikų)</span>
 
   <div class="input-area">
     <textarea id="main-input" placeholder="pvz: as einu i darba siandiena... arba: Šiandien labai grazus oras" spellcheck="false"></textarea>
@@ -546,6 +560,11 @@ border: 1px solid rgba(168,255,87,0.2);
 
   <p class="section-title">Žodžiai su analize</p>
   <div class="word-tokens" id="word-tokens"></div>
+
+  <div class="info-row" id="info-row" style="display:none">
+    <span class="info-chip" id="info-chip"></span>
+    <span>žali = teisingi · raudoni = klaidos · oranžiniai = nežinomi žodžiai</span>
+  </div>
 
   <div class="stats-grid">
     <div class="stat-box green">
@@ -565,28 +584,372 @@ border: 1px solid rgba(168,255,87,0.2);
   <p class="section-title">Pataisytas tekstas</p>
   <div class="corrected-output" id="corrected-output">—</div>
 
-<button class="toggle-debug" onclick="toggleDebug()">[ debug: levenshtein ]</button>
-
+  <button class="toggle-debug" onclick="toggleDebug()">[ debug: levenshtein ]</button>
   <div class="debug-panel" id="debug-panel"></div>
 
 </div>
 
 <script>
 // ═══════════════════════════════════════════════════════════════
-// ŽODYNAS — dažniausi lietuvių kalbos žodžiai su dažniu
+// ŽODYNAS — lietuvių kalbos žodžiai SU linksniavimo formomis
 // ═══════════════════════════════════════════════════════════════
 
-// Realūs dažniai iš OpenSubtitles lt_50k korpuso (hermitdave/FrequencyWords)
-// Filtruota: tik lietuviški žodžiai (su diakritikais arba žinomi), min 3 simboliai
 const DICTIONARY = [
-["ir",104695],["aš",99873],["tai",91078],["kad",79829],["tu",75256],["ne",66885],["taip",62598],["jis",54703],["ką",53359],["čia",48489],["į",46101],["kaip",45959],["ar",45536],["su",45047],["man",42329],["kas",42223],["gerai",40720],["mano",36375],["bet",35426],["iš",34348],["mes",34279],["tik",29310],["tau",28655],["ji",26388],["yra",25599],["jie",23439],["tavo",22900],["jei",22855],["buvo",22431],["savo",21726],["kai",21206],["kur",21075],["jūs",20920],["mane",20861],["dar",20615],["dabar",19266],["apie",19131],["viskas",18686],["jį",18180],["tave",17916],["labai",16657],["jau",16632],["ten",15194],["turi",14778],["reikia",14683],["už",14402],["kodėl",14350],["po",14073],["nieko",13911],["dėl",13575],["per",13220],["mūsų",13157],["nors",12880],["gali",12577],["tikrai",12252],["jūsų",12213],["nori",11988],["gal",11883],["ačiū",11757],["nuo",11635],["turiu",10886],["bus",10298],["jos",10195],["manęs",9701],["būti",9617],["ją",9611],["jam",9279],["jums",9184],["mums",9181],["noriu",9176],["visi",9124],["nes",9021],["žinai",8977],["pone",8534],["žinau",8313],["tavęs",8253],["tiesiog",8239],["tą",8082],["juk",8065],["nėra",8030],["tada",8006],["daug",7995],["ant",7949],["tas",7824],["viską",7609],["iki",7480],["prie",7451],["prašau",7336],["labas",7308],["jų",7303],["nežinau",7302],["daugiau",7084],["juos",7063],["prieš",6980],["manau",6946],["vienas",6920],["galiu",6761],["mus",6398],["jus",6327],["vis",6269],["negaliu",6245],["pat",6138],["taigi",6035],["tiek",5980],["pas",5971],["net",5860],["toks",5729],["kiek",5626],["kol",5600],["mama",5552],["nei",5549],["esu",5499],["žinoma",5466],["koks",5444],["būtų",5225],["pats",5192],["niekada",5163],["esi",5083],["pasakyti",4973],["kartą",4888],["tiesa",4839],["visą",4793],["geriau",4785],["kada",4772],["atsiprašau",4771],["kuris",4762],["vieną",4737],["atrodo",4682],["jai",4678],["niekas",4674],["negali",4629],["jog",4568],["šiandien",4557],["kuo",4524],["turime",4474],["žmonės",4385],["todėl",4374],["tuo",4265],["metų",4245],["arba",4235],["jeigu",4226],["greičiau",4169],["aišku",4144],["atleisk",4130],["palauk",4128],["laiko",4123],["patinka",4065],["manai",3994],["vėl",3923],["visada",3838],["kartu",3770],["tėti",3765],["puiku",3735],["buvau",3724],["visai",3697],["sveiki",3655],["nereikia",3635],["žmogus",3556],["namo",3550],["kam",3523],["darai",3511],["tuoj",3503],["padaryti",3490],["kažkas",3480],["klausyk",3478],["sakė",3447],["jiems",3411],["eiti",3405],["geras",3294],["visus",3277],["daryti",3240],["nenoriu",3230],["irgi",3164],["sveikas",3145],["tačiau",3142],["galbūt",3097],["tokia",3044],["viena",3028],["kurie",3027],["kokia",3005],["visa",2970],["nutiko",2965],["dieną",2952],["kitą",2945],["tam",2885],["padėti",2880],["myliu",2860],["pasakyk",2820],["sako",2799],["reiškia",2798],["šis",2776],["sakiau",2775],["maniau",2756],["pinigų",2744],["tavimi",2640],["žmonių",2619],["galima",2604],["manimi",2600],["tikras",2582],["sau",2559],["bent",2559],["turbūt",2558],["nebuvo",2527],["kurį",2475],["buvai",2469],["norėjau",2464],["laikas",2450],["vyras",2445],["tėvas",2439],["norėčiau",2433],["supratau",2423],["matai",2393],["vyksta",2377],["turim",2359],["toliau",2345],["supranti",2339],["diena",2309],["vardas",2306],["paskui",2247],["neturi",2217],["tie",2215],["suprantu",2212],["duok",2210],["atgal",2177],["puikiai",2170],["lyg",2167],["darbo",2165],["malonu",2140],["ateik",2112],["kažką",2109],["darbą",2105],["liaukis",2076],["nuostabu",2069],["tikiuosi",2066],["rimtai",2057],["kuri",2048],["žino",2046],["greitai",2043],["gyvenimą",1966],["visiškai",1964],["rytoj",1957],["galėčiau",1955],["matau",1953],["mačiau",1951],["gera",1948],["pati",1915],["pinigus",1911],["galime",1899],["naktį",1894],["visų",1890],["visas",1889],["teisingai",1888],["turėjo",1881],["tėtis",1865],["tokio",1845],["sakau",1837],["tarp",1835],["tuomet",1830],["pasakė",1818],["atsitiko",1815],["turite",1813],["leisk",1809],["beveik",1806],["truputį",1788],["neturiu",1771],["tikriausiai",1762],["kartais",1761],["save",1755],["žinoti",1751],["sunku",1741],["nesu",1734],["draugas",1726],["trys",1722],["anksčiau",1716],["vėliau",1715],["turėjau",1715],["labiau",1706],["tos",1700],["vaikai",1698],["pamatyti",1695],["darbas",1681],["ilgai",1658],["vieta",1657],["visiems",1654],["nebus",1651],["nesvarbu",1638],["dvi",1615],["turėtų",1614],["gana",1609],["mergina",1609],["tiesą",1592],["vadinasi",1575],["vakar",1574],["daro",1572],["kitas",1571],["žmona",1563],["matyti",1563],["einu",1560],["kalba",1558],["nesuprantu",1544],["pasakiau",1521],["sekasi",1517],["vaikas",1512],["vietą",1492],["tikra",1485],["būsiu",1482],["nenori",1481],["einam",1480],["pasakysiu",1475],["žmones",1474],["nemanau",1469],["galite",1464],["blogai",1455],["niekad",1452],["pagalbos",1451],["mašiną",1443],["moteris",1433],["draugai",1426],["kalbi",1423],["sūnus",1421],["abu",1415],["būtent",1413],["pasikalbėti",1408],["kita",1408],["padėk",1402],["girdėjau",1400],["teisus",1392],["gyvenimas",1384],["padarė",1377],["pirma",1369],["rankas",1367],["gaila",1362],["galvą",1361],["padarei",1360],["vyrai",1358],["tiesiai",1356],["minučių",1354],["vardu",1351],["kiekvieną",1346],["negalima",1341],["laukia",1337],["gyvenimo",1333],["liko",1325],["grįžti",1320],["dienos",1316],["atrodai",1315],["vienintelis",1307],["reikėjo",1305],["ponas",1302],["kelias",1291],["nesijaudink",1277],["vieno",1273],["norite",1269],["visos",1265],["rytas",1263],["dalykas",1255],["galėtų",1255],["šalia",1254],["pirmas",1250],["namuose",1244],["atleiskite",1244],["būsi",1241],["turėčiau",1241],["matei",1239],["gero",1232],["kitaip",1226],["ramiai",1225],["vaikų",1223],["galėtum",1219],["tris",1212],["eina",1209],["klausau",1202],["mirė",1198],["kito",1194],["kiti",1194],["šeima",1190],["niekam",1190],["girdi",1188],["vandens",1180],["pagal",1177],["akis",1171],["turėtum",1163],["reikės",1163],["namų",1158],["kalbėti",1153],["visko",1152],["esame",1150],["vaikinas",1146],["norėjo",1139],["galim",1139],["šitas",1136],["radau",1136],["galėjo",1135],["savaitę",1129],["supratai",1127],["geriausias",1127],["gauti",1117],["mintis",1115],["gyventi",1107],["gyvas",1105],["žmogaus",1104],["pagaliau",1100],["padariau",1096],["namie",1095],["pavyko",1091],["gyvenime",1088],["graži",1088],["niekur",1084],["rasti",1084],["mašina",1077],["atėjo",1076],["metas",1064],["namus",1060],["keista",1055],["kurio",1054],["dėkoju",1050],["kelio",1040],["pasaulio",1039],["veikia",1037],["šeimos",1035],["ginklą",990],["merginos",989],["drauge",986],["dirbti",984],["problemų",981],["oro",976],["brangioji",971],["pinigai",964],["prašom",964],["puikus",962],["motina",961],["pakankamai",958],["pasaulį",956],["žmogų",955],["kažkur",953],["toli",951],["ranką",951],["meilės",949],["gyvenime",1088],["ranka",591],["širdis",551],["akys",476],["galva",658],["koja",450],["veidas",700],["namas",585],["namai",692],["miestas",450],["darbas",1681],["vanduo",457],["maistas",825],["šalis",486],["kelionė",400],["mokykla",543],["automobilis",400],["draugė",495],["tėvai",715],["vaikas",1512],["naujas",610],["nauja",509],["senas",740],["gražus",773],["didelis",940],["didelė",549],["mažas",887],["maža",623],["blogas",573],["bloga",592],["greitas",400],["lėtas",400],["šaltas",400],["šiltas",400],["linksmas",400],["liūdnas",400],["skanus",400],["puiki",826],["vienas",6920],["du",3751],["trys",1722],["keturi",533],["penki",543],["šeši",400],["septyni",400],["aštuoni",400],["devyni",400],["dešimt",570],["rytoj",1957],["vakaras",722],["rytas",1263],["naktis",491],["savaitę",1129],["metai",900],["darysime",500],["einame",400],["esame",1150],["buvome",652],["turime",4474],["galime",1899],["norime",499],["dirbame",400],["kalbame",400],["rašome",400],["skaitome",400],["žinome",569],["gyvename",400],["matome",524],["sakome",400],
+// Dažniausi žodžiai
+["ir",104695],["aš",99873],["tai",91078],["kad",79829],["tu",75256],["ne",66885],
+["taip",62598],["jis",54703],["ką",53359],["čia",48489],["į",46101],["kaip",45959],
+["ar",45536],["su",45047],["man",42329],["kas",42223],["gerai",40720],["mano",36375],
+["bet",35426],["iš",34348],["mes",34279],["tik",29310],["tau",28655],["ji",26388],
+["yra",25599],["jie",23439],["tavo",22900],["jei",22855],["buvo",22431],["savo",21726],
+["kai",21206],["kur",21075],["jūs",20920],["mane",20861],["dar",20615],["dabar",19266],
+["apie",19131],["viskas",18686],["jį",18180],["tave",17916],["labai",16657],["jau",16632],
+["ten",15194],["turi",14778],["reikia",14683],["už",14402],["kodėl",14350],["po",14073],
+["nieko",13911],["dėl",13575],["per",13220],["mūsų",13157],["nors",12880],["gali",12577],
+["tikrai",12252],["jūsų",12213],["nori",11988],["gal",11883],["ačiū",11757],["nuo",11635],
+["turiu",10886],["bus",10298],["jos",10195],["manęs",9701],["būti",9617],["ją",9611],
+["jam",9279],["jums",9184],["mums",9181],["noriu",9176],["visi",9124],["nes",9021],
+["žinai",8977],["pone",8534],["žinau",8313],["tavęs",8253],["tiesiog",8239],["tą",8082],
+["juk",8065],["nėra",8030],["tada",8006],["daug",7995],["ant",7949],["tas",7824],
+["viską",7609],["iki",7480],["prie",7451],["prašau",7336],["labas",7308],["jų",7303],
+["nežinau",7302],["daugiau",7084],["juos",7063],["prieš",6980],["manau",6946],
+["vienas",6920],["galiu",6761],["mus",6398],["jus",6327],["vis",6269],["negaliu",6245],
+["pat",6138],["taigi",6035],["tiek",5980],["pas",5971],["net",5860],["toks",5729],
+["kiek",5626],["kol",5600],["mama",5552],["nei",5549],["esu",5499],["žinoma",5466],
+["koks",5444],["būtų",5225],["pats",5192],["niekada",5163],["esi",5083],["pasakyti",4973],
+["kartą",4888],["tiesa",4839],["visą",4793],["geriau",4785],["kada",4772],
+["atsiprašau",4771],["kuris",4762],["vieną",4737],["atrodo",4682],["jai",4678],
+["niekas",4674],["negali",4629],["jog",4568],["šiandien",4557],["kuo",4524],
+["turime",4474],["žmonės",4385],["todėl",4374],["tuo",4265],["metų",4245],["arba",4235],
+["jeigu",4226],["greičiau",4169],["aišku",4144],["atleisk",4130],["palauk",4128],
+["laiko",4123],["patinka",4065],["manai",3994],["vėl",3923],["visada",3838],
+["kartu",3770],["tėti",3765],["puiku",3735],["buvau",3724],["visai",3697],
+["sveiki",3655],["nereikia",3635],["žmogus",3556],["namo",3550],["kam",3523],
+["darai",3511],["tuoj",3503],["padaryti",3490],["kažkas",3480],["klausyk",3478],
+["sakė",3447],["jiems",3411],["eiti",3405],["geras",3294],["visus",3277],
+["daryti",3240],["nenoriu",3230],["irgi",3164],["sveikas",3145],["tačiau",3142],
+["galbūt",3097],["tokia",3044],["viena",3028],["kurie",3027],["kokia",3005],
+["visa",2970],["nutiko",2965],["dieną",2952],["kitą",2945],["tam",2885],
+["padėti",2880],["myliu",2860],["pasakyk",2820],["sako",2799],["reiškia",2798],
+["šis",2776],["sakiau",2775],["maniau",2756],["pinigų",2744],["tavimi",2640],
+["žmonių",2619],["galima",2604],["manimi",2600],["tikras",2582],["sau",2559],
+["bent",2559],["turbūt",2558],["nebuvo",2527],["kurį",2475],["buvai",2469],
+["norėjau",2464],["laikas",2450],["vyras",2445],["tėvas",2439],["norėčiau",2433],
+["supratau",2423],["matai",2393],["vyksta",2377],["turim",2359],["toliau",2345],
+["supranti",2339],["diena",2309],["vardas",2306],["paskui",2247],["neturi",2217],
+["tie",2215],["suprantu",2212],["duok",2210],["atgal",2177],["puikiai",2170],
+["lyg",2167],["darbo",2165],["malonu",2140],["ateik",2112],["kažką",2109],
+["darbą",2105],["liaukis",2076],["nuostabu",2069],["tikiuosi",2066],["rimtai",2057],
+["kuri",2048],["žino",2046],["greitai",2043],["gyvenimą",1966],["visiškai",1964],
+["rytoj",1957],["galėčiau",1955],["matau",1953],["mačiau",1951],["gera",1948],
+["pati",1915],["pinigus",1911],["galime",1899],["naktį",1894],["visų",1890],
+["visas",1889],["teisingai",1888],["turėjo",1881],["tėtis",1865],["tokio",1845],
+["sakau",1837],["tarp",1835],["tuomet",1830],["pasakė",1818],["atsitiko",1815],
+["turite",1813],["leisk",1809],["beveik",1806],["truputį",1788],["neturiu",1771],
+["tikriausiai",1762],["kartais",1761],["save",1755],["žinoti",1751],["sunku",1741],
+["nesu",1734],["draugas",1726],["trys",1722],["anksčiau",1716],["vėliau",1715],
+["turėjau",1715],["labiau",1706],["tos",1700],["vaikai",1698],["pamatyti",1695],
+["darbas",1681],["ilgai",1658],["vieta",1657],["visiems",1654],["nebus",1651],
+["nesvarbu",1638],["dvi",1615],["turėtų",1614],["gana",1609],["mergina",1609],
+["tiesą",1592],["vadinasi",1575],["vakar",1574],["daro",1572],["kitas",1571],
+["žmona",1563],["matyti",1563],["einu",1560],["kalba",1558],["nesuprantu",1544],
+["pasakiau",1521],["sekasi",1517],["vaikas",1512],["vietą",1492],["tikra",1485],
+["būsiu",1482],["nenori",1481],["einam",1480],["pasakysiu",1475],["žmones",1474],
+["nemanau",1469],["galite",1464],["blogai",1455],["niekad",1452],["pagalbos",1451],
+["mašiną",1443],["moteris",1433],["draugai",1426],["kalbi",1423],["sūnus",1421],
+["abu",1415],["būtent",1413],["pasikalbėti",1408],["kita",1408],["padėk",1402],
+["girdėjau",1400],["teisus",1392],["gyvenimas",1384],["padarė",1377],["pirma",1369],
+["rankas",1367],["gaila",1362],["galvą",1361],["padarei",1360],["vyrai",1358],
+["tiesiai",1356],["minučių",1354],["vardu",1351],["kiekvieną",1346],["negalima",1341],
+["laukia",1337],["gyvenimo",1333],["liko",1325],["grįžti",1320],["dienos",1316],
+["atrodai",1315],["vienintelis",1307],["reikėjo",1305],["ponas",1302],["kelias",1291],
+["nesijaudink",1277],["vieno",1273],["norite",1269],["visos",1265],["rytas",1263],
+["dalykas",1255],["galėtų",1255],["šalia",1254],["pirmas",1250],["namuose",1244],
+["atleiskite",1244],["būsi",1241],["turėčiau",1241],["matei",1239],["gero",1232],
+["kitaip",1226],["ramiai",1225],["vaikų",1223],["galėtum",1219],["tris",1212],
+["eina",1209],["klausau",1202],["mirė",1198],["kito",1194],["kiti",1194],
+["šeima",1190],["niekam",1190],["girdi",1188],["vandens",1180],["pagal",1177],
+["akis",1171],["turėtum",1163],["reikės",1163],["namų",1158],["kalbėti",1153],
+["visko",1152],["esame",1150],["vaikinas",1146],["norėjo",1139],["galim",1139],
+["šitas",1136],["radau",1136],["galėjo",1135],["savaitę",1129],["supratai",1127],
+["geriausias",1127],["gauti",1117],["mintis",1115],["gyventi",1107],["gyvas",1105],
+["žmogaus",1104],["pagaliau",1100],["padariau",1096],["namie",1095],["pavyko",1091],
+["gyvenime",1088],["graži",1088],["niekur",1084],["rasti",1084],["mašina",1077],
+["atėjo",1076],["metas",1064],["namus",1060],["keista",1055],["kurio",1054],
+["dėkoju",1050],["kelio",1040],["pasaulio",1039],["veikia",1037],["šeimos",1035],
+
+// Daiktavardžiai su linksniavimo formomis
+["ranka",800],["rankos",750],["ranką",700],["rankoje",600],["rankomis",500],
+["širdis",800],["širdies",700],["širdžiai",600],["širdį",700],["širdyje",550],
+["akys",700],["akių",650],["akims",500],["akis",600],["akyse",450],
+["galva",900],["galvos",800],["galvai",650],["galvą",850],["galvoje",700],
+["koja",700],["kojos",650],["kojai",500],["koją",650],["kojoje",450],
+["veidas",850],["veido",750],["veidui",500],["veidą",700],["veide",550],
+["namas",800],["namo",750],["namui",500],["namai",750],["namų",700],
+["vanduo",700],["vandens",750],["vandeniui",400],["vandenį",600],
+["maistas",900],["maisto",850],["maistui",500],["maistą",800],
+["šalis",700],["šalies",650],["šaliai",450],["šalį",600],["šalyje",500],
+["kelionė",600],["kelionės",550],["kelionei",400],["kelionę",500],
+["mokykla",700],["mokyklos",650],["mokyklai",450],["mokyklą",600],["mokykloje",500],
+["automobilis",600],["automobilio",550],["automobiliui",400],["automobilį",550],["automobilyje",450],
+["draugė",700],["draugės",650],["draugei",450],["draugę",600],["draugėje",400],
+["tėvai",900],["tėvų",800],["tėvams",600],["tėvus",700],
+["miestas",700],["miesto",650],["miestui",450],["miestą",600],["mieste",550],
+["projektas",800],["projekto",750],["projektui",500],["projektą",700],["projekte",600],
+["projektu",450],["projektai",600],["projektų",550],["projektams",400],["projektus",500],
+["darbas",1200],["darbo",1100],["darbui",700],["darbą",900],["darbe",800],
+["darbu",500],["darbai",700],["darbų",650],["darbams",450],["darbus",600],
+["laikas",900],["laiko",850],["laikui",550],["laiką",750],["laike",600],
+["laikui",450],["laikui",400],["laiku",500],
+["žodis",600],["žodžio",550],["žodžiui",400],["žodį",500],["žodyje",400],
+["žodžiai",550],["žodžių",500],["žodžiams",350],["žodžius",450],
+["mintis",800],["minties",700],["minčiai",450],["mintį",600],["mintyje",500],
+["minčių",550],["mintys",650],
+["vieta",900],["vietos",850],["vietai",550],["vietą",800],["vietoje",700],
+["vietų",600],["vietos",700],
+["dalis",700],["dalies",650],["daliai",450],["dalį",600],["dalyje",500],
+["dalių",550],["dalys",600],
+["rytas",900],["ryto",850],["rytui",500],["rytą",700],["ryte",650],
+["ryto",750],["rytai",600],["rytų",550],
+["vakaras",800],["vakaro",750],["vakarui",500],["vakarą",650],["vakare",600],
+["naktis",700],["nakties",650],["nakčiai",400],["naktį",600],["naktyje",450],
+["metai",900],["metų",850],["metams",550],["metus",700],["metuose",500],
+["savaitė",700],["savaitės",650],["savaitei",400],["savaitę",650],["savaitėje",500],
+["diena",900],["dienos",850],["dienai",550],["dieną",800],["dienoje",650],
+["valanda",700],["valandos",650],["valandai",400],["valandą",600],["valandoje",500],
+["minutė",600],["minutės",550],["minutei",350],["minutę",500],["minutėje",400],
+["žmogus",900],["žmogaus",850],["žmogui",550],["žmogų",750],["žmoguje",600],
+["moteris",800],["moters",750],["moteriai",450],["moterį",650],["moteryje",500],
+["vyras",900],["vyro",850],["vyrui",550],["vyrą",750],["vyre",600],
+["vaikas",900],["vaiko",850],["vaikui",550],["vaiku",500],["vaike",600],
+["mergina",800],["merginos",750],["merginai",450],["merginą",650],["merginoje",500],
+["vaikinas",800],["vaikino",750],["vaikinui",450],["vaikiną",650],["vaikine",500],
+["šeima",900],["šeimos",850],["šeimai",550],["šeimą",750],["šeimoje",650],
+["draugas",900],["draugo",850],["draugui",550],["draugą",750],["drauge",650],
+["knyga",700],["knygos",650],["knygai",400],["knygą",600],["knygoje",500],
+["knygų",550],["knygos",600],
+["mokslas",700],["mokslo",650],["mokslui",400],["mokslą",600],["moksle",500],
+["kalba",900],["kalbos",850],["kalbai",550],["kalbą",750],["kalboje",650],
+["kalbų",600],["kalbos",700],
+["klausimas",700],["klausimo",650],["klausimui",400],["klausimą",600],["klausime",500],
+["klausimai",550],["klausimų",500],
+["atsakymas",650],["atsakymo",600],["atsakymui",350],["atsakymą",550],["atsakyme",450],
+["vardas",900],["vardo",850],["vardui",500],["vardą",750],["varde",600],
+["pasaulis",700],["pasaulio",650],["pasauliui",400],["pasaulį",600],["pasaulyje",500],
+["šalis",700],["šalies",650],["šaliai",400],["šalį",600],["šalyje",500],
+["miestas",700],["miesto",650],["miestui",400],["miestą",600],["mieste",500],
+["gyvenimas",900],["gyvenimo",850],["gyvenimui",500],["gyvenimą",750],["gyvenime",650],
+["meilė",700],["meilės",650],["meilei",400],["meilę",600],["meilėje",500],
+["džiaugsmas",600],["džiaugsmo",550],["džiaugsmui",350],["džiaugsmą",500],
+["liūdesys",500],["liūdesio",450],["liūdesiui",300],["liūdesį",450],
+["baimė",600],["baimės",550],["baimai",350],["baimę",500],["baimėje",400],
+
+// Būdvardžiai su linksniavimo formomis
+["didelis",1200],["didelio",1100],["dideliam",700],["didelį",1000],["dideliu",600],
+["didelyje",500],["didelė",800],["didelės",700],["didelei",450],["didelę",700],
+["didelėje",500],["dideli",700],["didelių",600],["dideliems",450],["didelius",600],
+["didelėms",400],["dideles",550],
+["mažas",1100],["mažo",1000],["mažam",650],["mažą",900],["mažu",550],
+["mažame",500],["maža",700],["mažos",650],["mažai",450],["mažą",800],
+["mažoje",500],["maži",600],["mažų",550],["mažiems",400],["mažus",550],
+["mažoms",350],["mažas",800],
+["geras",1100],["gero",1000],["geram",650],["gerą",900],["geru",550],
+["gerame",500],["gera",800],["geros",700],["gerai",600],["gerą",750],
+["geroje",450],["geri",700],["gerų",600],["geriems",400],["gerus",600],
+["geroms",350],["geras",800],
+["blogas",900],["blogo",850],["blogam",550],["blogą",750],["blogu",450],
+["blogame",400],["bloga",700],["blogos",650],["blogai",500],["blogą",650],
+["blogoje",400],["blogi",600],["blogų",550],["blogiems",350],["blogus",550],
+["blogoms",300],["blogas",700],
+["naujas",1000],["naujo",950],["naujam",600],["naują",850],["nauju",500],
+["naujame",450],["nauja",700],["naujos",650],["naujai",400],["naują",700],
+["naujoje",450],["nauji",600],["naujų",550],["naujiems",350],["naujus",550],
+["naujoms",300],
+["senas",900],["seno",850],["senam",550],["seną",750],["senu",450],
+["senam",400],["sena",700],["senos",650],["senai",400],["seną",650],
+["senoje",400],["seni",600],["senų",550],["seniems",350],["senus",550],
+["senoms",300],
+["gražus",900],["gražaus",850],["gražiam",500],["gražų",750],["gražiu",450],
+["gražiame",400],["graži",700],["gražios",650],["gražiai",500],["gražią",600],
+["gražioje",400],["gražūs",600],["gražių",550],["gražiems",350],["gražius",550],
+["gražioms",300],["gražias",500],
+["greitas",800],["greito",750],["greitam",500],["greitą",650],["greit",450],
+["greita",700],["greitos",650],["greitai",600],["greitą",600],
+["lėtas",700],["lėto",650],["lėtam",400],["lėtą",550],["lėta",600],
+["šaltas",700],["šalto",650],["šaltam",400],["šaltą",550],["šalta",600],["šaltoje",400],
+["šiltas",700],["šilto",650],["šiltam",400],["šiltą",550],["šilta",600],
+["linksmas",700],["linksmo",650],["linksmam",400],["linksmą",550],["linksma",600],
+["liūdnas",700],["liūdno",650],["liūdnam",400],["liūdną",550],["liūdna",600],
+["skanus",700],["skanaus",650],["skaniam",400],["skanų",550],["skani",600],
+["tikras",900],["tikro",850],["tikram",550],["tikrą",750],["tikra",700],["tikros",650],
+["visas",950],["viso",900],["visam",550],["visą",850],["visa",800],["visas",850],
+["puikus",900],["puikaus",850],["puikiam",500],["puikų",750],["puiki",700],
+["puikios",650],["puikiai",700],
+["pirmas",800],["pirmo",750],["pirmam",450],["pirmą",650],["pirma",700],
+["antras",700],["antro",650],["antram",400],["antrą",550],["antra",600],
+["kitas",900],["kito",850],["kitam",550],["kitą",800],["kita",750],["kitais",600],
+
+// Veiksmažodžiai su asmenimis/laikais
+["eiti",900],["einu",850],["eini",700],["eina",800],["einame",700],["einate",600],
+["ėjau",700],["ėjai",600],["ėjo",750],["ėjome",550],["ėjote",500],["eis",700],
+["eisiu",650],["eisi",550],["eisime",500],["eisite",450],
+["daryti",900],["darau",850],["darai",800],["daro",850],["darome",700],["darote",600],
+["dariau",700],["darei",600],["darė",800],["darėme",550],["darėte",500],
+["darys",750],["darysiiu",650],["darysi",550],["darysime",500],
+["padaryti",950],["padarau",850],["padarai",800],["padaro",850],["padarome",700],
+["padariau",750],["padarei",700],["padarė",800],["padarys",700],
+["padarysiiu",600],["padarysi",550],
+["eiti",900],["išeiti",800],["ateiti",800],["nueiti",700],["prieiti",700],
+["kalbėti",900],["kalbu",850],["kalbi",800],["kalba",850],["kalbame",700],["kalbate",600],
+["kalbėjau",700],["kalbėjai",600],["kalbėjo",750],["kalbės",650],
+["pasakyti",900],["sakau",850],["sakai",800],["sako",850],["sakome",700],
+["sakiau",750],["sakei",650],["sakė",800],["sakys",700],
+["matyti",900],["matau",850],["matai",800],["mato",850],["matome",700],
+["mačiau",750],["matei",650],["matė",750],["matys",700],
+["norėti",900],["noriu",850],["nori",800],["nori",800],["norime",700],["norite",600],
+["norėjau",750],["norėjai",650],["norėjo",750],["norės",700],
+["galėti",900],["galiu",850],["gali",800],["gali",800],["galime",700],["galite",600],
+["galėjau",700],["galėjai",600],["galėjo",750],["galės",700],
+["turėti",900],["turiu",850],["turi",800],["turi",800],["turime",700],["turite",600],
+["turėjau",750],["turėjai",650],["turėjo",800],["turės",700],
+["žinoti",900],["žinau",850],["žinai",800],["žino",850],["žinome",700],["žinote",600],
+["žinojau",700],["žinojai",600],["žinojo",750],["žinos",700],
+["suprasti",900],["suprantu",850],["supranti",800],["supranta",850],["suprantame",700],
+["supratau",750],["supratai",650],["suprato",750],["supras",700],
+["gyventi",900],["gyvenu",850],["gyveni",800],["gyvena",850],["gyvename",700],
+["gyvenau",700],["gyvenai",600],["gyveno",750],["gyvens",650],
+["dirbti",900],["dirbu",850],["dirbi",800],["dirba",850],["dirbame",700],
+["dirbau",700],["dirbai",600],["dirbo",750],["dirbs",650],
+["rašyti",900],["rašau",850],["rašai",800],["rašo",850],["rašome",700],
+["rašiau",700],["rašei",600],["rašė",750],["rašys",700],
+["skaityti",900],["skaitau",850],["skaitai",800],["skaito",850],["skaitome",700],
+["skaičiau",700],["skaitei",600],["skaitė",750],["skaitys",700],
+["valgyti",900],["valgau",850],["valgai",800],["valgo",850],["valgome",700],
+["valgiau",700],["valgei",600],["valgė",750],["valgys",700],
+["gerti",900],["geriu",850],["geri",800],["geria",850],["geriame",700],
+["gėriau",700],["gėrei",600],["gėrė",750],["gers",650],
+["miegoti",900],["miegu",850],["miegi",800],["miega",850],["miegame",700],
+["miegojau",700],["miegojai",600],["miegojo",750],["miegos",650],
+["ateiti",900],["ateinu",850],["ateini",800],["ateina",850],["ateiname",700],
+["atėjau",750],["atėjai",650],["atėjo",800],["ateis",700],
+["išeiti",850],["išeinu",800],["išeini",700],["išeina",800],
+["išėjau",700],["išėjai",600],["išėjo",750],["išeis",650],
+["nueiti",850],["nueinu",800],["nueini",700],["nueina",800],["nueis",650],
+["grįžti",900],["grįžtu",850],["grįžti",800],["grįžta",850],["grįžtame",700],
+["grįžau",750],["grįžai",650],["grįžo",800],["grįš",650],
+["pradėti",900],["pradedu",850],["pradedi",800],["pradeda",850],["pradedame",700],
+["pradėjau",750],["pradėjai",650],["pradėjo",800],["pradės",700],
+["baigti",900],["baigiu",850],["baigi",800],["baigia",850],["baigiame",700],
+["baigiau",750],["baigei",650],["baigė",800],["baigs",700],
+["pirkti",900],["perku",850],["perki",800],["perka",850],["perkame",700],
+["pirkau",700],["pirkai",600],["pirko",750],["pirks",650],
+["duoti",900],["duodu",850],["duodi",800],["duoda",850],["duodame",700],
+["daviau",700],["davei",600],["davė",750],["duos",650],
+["imti",900],["imu",850],["imi",800],["ima",850],["imame",700],
+["ėmiau",700],["ėmei",600],["ėmė",750],["ims",650],
+["būti",950],["esu",900],["esi",850],["yra",950],["esame",850],["esate",700],
+["buvau",800],["buvai",750],["buvo",900],["buvome",650],["buvote",600],
+["būsiu",750],["būsi",700],["bus",850],["būsime",600],["būsite",550],
+["žiūrėti",850],["žiūriu",800],["žiūri",750],["žiūri",750],["žiūrime",650],
+["žiūrėjau",700],["žiūrėjai",600],["žiūrėjo",750],["žiūrės",650],
+["laukti",850],["laukiu",800],["lauki",750],["laukia",800],["laukiame",650],
+["laukiau",700],["laukei",600],["laukė",750],["lauks",650],
+["klausyti",850],["klausau",800],["klausai",750],["klauso",800],["klausoma",650],
+["klausiau",700],["klausei",600],["klausė",750],["klausys",650],
+["mesti",800],["metu",750],["meti",700],["meta",750],["metame",600],
+["mečiau",650],["metei",550],["metė",700],["mes",600],
+["nešti",800],["nešu",750],["neši",700],["neša",750],["nešame",600],
+["nešiau",650],["nešei",550],["nešė",700],["neš",600],
+["eiti",900],["eisiu",750],["eis",750],
+["šnekėti",800],["šneku",750],["šneki",700],["šneka",750],["šnekame",600],
+["šnekėjau",650],["šnekėjo",700],
+["klausinėti",700],["klausinėju",650],["klausinėja",700],
+
+// Skaitvardžiai ir jų formos
+["vienas",1200],["vieno",1100],["vienam",700],["vieną",1000],["vienu",600],["vienoje",500],
+["du",1100],["dviejų",950],["dviem",700],["du",1100],["dviem",650],
+["trys",950],["trijų",850],["trims",600],["tris",800],["trimis",550],
+["keturi",700],["keturių",650],["keturiems",400],["keturis",550],
+["penki",700],["penkių",650],["penkiems",400],["penkis",550],
+["šeši",600],["šešių",550],["šešiems",350],["šešis",500],
+["septyni",600],["septynių",550],["septyniems",350],["septynis",500],
+["aštuoni",600],["aštuonių",550],["aštuoniems",350],["aštuonis",500],
+["devyni",600],["devynių",550],["devyniems",350],["devynis",500],
+["dešimt",700],["dešimties",650],["dešimčiai",400],["dešimt",700],
+
+// Jungtukai, prielinksniai, prieveiksmiai
+["labas",1000],["sveikas",900],["sveika",850],["iki",900],["viso",800],
+["gerai",1000],["puiku",900],["taip",1200],["ne",1100],["gal",1000],
+["štai",800],["va",700],["na",650],["nu",600],
+["čia",1100],["ten",1000],["čionai",700],["toli",800],["arčiau",700],
+["viršuje",600],["apačioje",600],["šone",600],["viduje",650],
+["aukštai",600],["žemai",600],["kairėje",600],["dešinėje",600],
+["priešais",700],["gale",600],["pradžioje",700],["gale",600],
+["dabar",1200],["anksčiau",1000],["vėliau",1000],["tada",1100],["tuomet",900],
+["rytoj",1100],["vakar",1000],["užvakar",700],["poryt",700],
+["šiandien",1200],["šią",900],["šis",1000],["šie",900],["ši",850],
+["visada",1000],["niekada",1000],["kartais",1000],["dažnai",900],
+["retai",800],["greitai",900],["lėtai",800],["tyliai",700],["garsiai",700],
+["gerai",1000],["blogai",800],["teisingai",900],["klaidingai",700],
+["labai",1200],["truputį",900],["šiek",800],["tiek",900],["kiek",950],
+["dar",1100],["jau",1100],["vis",900],["vis dar",850],["beveik",900],
+["tikrai",1000],["turbūt",900],["galbūt",900],["gal",1000],
+["tik",1100],["net",900],["irgi",900],["taip pat",850],["taipogi",700],
+["ir",1500],["bet",1100],["arba",1000],["tačiau",1000],["vis dėlto",800],
+["todėl",1000],["nes",1100],["kadangi",900],["jeigu",1000],["jei",1100],
+["kai",1100],["kol",1000],["iki",900],["po",1100],["prieš",1000],
+["su",1200],["be",1100],["iš",1100],["į",1200],["per",1100],["prie",1000],
+["ant",1100],["po",1100],["už",1100],["apie",1100],["aplink",900],
+["šalia",1000],["tarp",1000],["nuo",1100],["dėl",1000],["pagal",1000],
+
+// Sangrąžiniai veiksmažodžiai
+["susitikti",700],["susitinku",650],["susitinka",700],["susitikome",600],
+["pasikalbėti",700],["pasikalbu",650],["pasikalba",700],
+["pasiruošti",700],["pasiruošiu",650],["pasiruošia",700],
+["apsispręsti",650],["apsisprendžiu",600],["apsisprendžia",650],
+["nusiraminti",650],["nusiraminu",600],["nusiramina",650],
+
+// Dažnai klaidingai rašomi žodžiai (be diakritikų versijos → turėtų rasti teisingą)
+["lietuva",800],["lietuvos",750],["lietuvai",500],["lietuvą",700],["lietuvoje",650],
+["vilnius",800],["vilniaus",750],["vilniuje",600],
+["kaunas",800],["kauno",750],["kaune",650],
+["klaipeda",700],["klaipėda",700],["klaipėdos",650],["klaipėdoje",550],
+
+// Papildomi žodžiai
+["labai",1200],["truputį",900],["visiškai",900],["absoliučiai",700],
+["tikrai",1000],["iš tiesų",800],["iš tikro",800],
+["šiandien",1200],["šiandieną",1000],["šiandieninis",700],
+["žodžiu",700],["apskritai",800],["paprastai",800],
+["pavyzdžiui",800],["būtent",1000],["vadinasi",900],["taigi",1000],
+["pirma",900],["antra",800],["trečia",700],["ketvirta",600],
+["pagaliau",1000],["iš karto",900],["iš pradžių",850],
+["paskutinis",800],["paskutinio",750],["paskutiniam",450],["paskutinį",700],
+["svarbus",900],["svarbaus",850],["svarbiam",500],["svarbų",750],["svarbi",700],
+["lengvas",800],["lengvo",750],["lengvam",450],["lengvą",650],["lengva",700],
+["sunkus",900],["sunkaus",850],["sunkiam",500],["sunkų",750],["sunki",700],
+["aukštas",800],["aukšto",750],["aukštam",450],["aukštą",650],["aukšta",700],
+["žemas",800],["žemo",750],["žemam",450],["žemą",650],["žema",700],
+["ilgas",800],["ilgo",750],["ilgam",450],["ilgą",650],["ilga",700],
+["trumpas",800],["trumpo",750],["trumpam",450],["trumpą",650],["trumpa",700],
+["platus",700],["plačio",650],["plačiam",400],["platų",600],["plati",650],
+["siauras",700],["siauro",650],["siauam",400],["siaurą",600],["siaura",650],
+["stiprus",800],["stipraus",750],["stipriam",450],["stiprų",650],["stipri",700],
+["silpnas",700],["silpno",650],["silpnam",400],["silpną",600],["silpna",650],
+["jaunas",900],["jauno",850],["jaunam",500],["jauną",750],["jauna",800],
+["senas",900],["seno",850],["senam",500],["seną",750],["sena",800],
+["turtingas",700],["turtingo",650],["turtingam",400],["turtingą",600],["turtinga",650],
+["vargšas",600],["vargšo",550],["vargšam",350],["vargšą",500],
+["laimingas",800],["laimingo",750],["laimingam",450],["laimingą",650],["laiminga",700],
+["nelaimingas",700],["nelaimingo",650],["nelaimingam",400],["nelaimingą",600],
+["gražus",1000],["gražaus",950],["gražiam",550],["gražų",850],["graži",800],
+["bjaurus",700],["bjauraus",650],["bjauriam",400],["bjaurų",600],["bjauri",650],
+["šaunus",800],["šaunaus",750],["šauniam",450],["šaunų",650],["šauni",700],
 ];
 
 const dict = new Map(DICTIONARY.map(([w, f]) => [w.toLowerCase(), f]));
 const words = [...dict.keys()];
 
 // ═══════════════════════════════════════════════════════════════
-// NORMALIZACIJA — pašalinti diakritikus palyginimui
+// NORMALIZACIJA
 // ═══════════════════════════════════════════════════════════════
 
 const DIACRITIC_MAP = {
@@ -598,6 +961,21 @@ function normalize(str) {
   return str.toLowerCase().replace(/[ąčęėįšųūžĄČĘĖĮŠŲŪŽ]/g, c => DIACRITIC_MAP[c] || c);
 }
 
+// Lietuvių kalbos priešdėliai — jų negalima numesti
+const LT_PREFIXES = [
+  'pa','su','iš','nu','at','ap','už','per','pri','pro','ne',
+  'be','są','san','sam','są','są','są','są','są',
+  'išsi','pasi','susi','nusi','atsi','apsi'
+];
+
+function hasPrefix(word) {
+  return LT_PREFIXES.some(p => word.startsWith(p) && word.length > p.length + 2);
+}
+
+function getPrefix(word) {
+  return LT_PREFIXES.find(p => word.startsWith(p) && word.length > p.length + 2) || '';
+}
+
 // ═══════════════════════════════════════════════════════════════
 // LEVENSHTEIN DISTANCE
 // ═══════════════════════════════════════════════════════════════
@@ -606,55 +984,114 @@ function levenshtein(a, b) {
   if (a === b) return 0;
   if (a.length === 0) return b.length;
   if (b.length === 0) return a.length;
-
-  // Dinaminė programa
   const rows = a.length + 1;
   const cols = b.length + 1;
   const dp = [];
-
   for (let i = 0; i < rows; i++) {
     dp[i] = [i];
     for (let j = 1; j < cols; j++) {
       if (i === 0) { dp[i][j] = j; continue; }
       const cost = a[i-1] === b[j-1] ? 0 : 1;
       dp[i][j] = Math.min(
-        dp[i-1][j] + 1,      // ištrynimas
-        dp[i][j-1] + 1,      // įterpimas
-        dp[i-1][j-1] + cost  // keitimas
+        dp[i-1][j] + 1,
+        dp[i][j-1] + 1,
+        dp[i-1][j-1] + cost
       );
     }
   }
   return dp[rows-1][cols-1];
 }
 
+// Bendra prefikso ilgis
+function commonPrefixLen(a, b) {
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) i++;
+  return i;
+}
+
 // ═══════════════════════════════════════════════════════════════
-// PAGRINDINIS PAIEŠKOS ALGORITMAS
+// PAGRINDINIS PAIEŠKOS ALGORITMAS — patobulintas
 // ═══════════════════════════════════════════════════════════════
 
 function findCandidates(inputWord, maxDist = 2, topN = 5) {
   const normInput = normalize(inputWord);
+  const inputLen = inputWord.length;
+  const inputPrefix = getPrefix(normInput);
   const results = [];
 
   for (const w of words) {
     const normW = normalize(w);
-    // Greitas filtras — jei ilgiai labai skiriasi, praleisti
-    if (Math.abs(normInput.length - normW.length) > maxDist + 1) continue;
+
+    // 1. Ilgio filtras — negali skirtis daugiau nei maxDist+1
+    if (Math.abs(inputLen - w.length) > maxDist + 1) continue;
+
+    // 2. SVARBU: jei įvesto žodžio priešdėlis skiriasi nuo kandidato — didelė bauda
+    //    Tai apsaugo nuo "padaryti" → "daryti" tipo klaidų
+    const wPrefix = getPrefix(normW);
+    if (inputPrefix && !wPrefix && normInput !== normW) continue; // Visiškai ignoruojame
+    if (inputPrefix !== wPrefix && normInput !== normW) {
+      // Skirtingi priešdėliai — tik siūlome, bet ne auto-taisome
+      // (bus rodoma kaip kandidatas bet ne auto-replaced)
+      continue;
+    }
 
     const dist = levenshtein(normInput, normW);
-    if (dist <= maxDist) {
-      const freq = dict.get(w) || 1;
-      // Svertinis balas: atstumas svarbu, dažnis kaip bonus
-      // Atstumas dominuoja, dažnis tik sprendžia lygybę
-      // Bonus jei normalizuoti žodžiai identiški (tik diakritikų skirtumas)
-      const diacriticBonus = (normInput === normW) ? -500 : 0;
-      const score = dist * 10000 - Math.log(freq) * 10 + diacriticBonus;
-      results.push({ word: w, dist, freq, score });
-    }
+    if (dist > maxDist) continue;
+
+    const freq = dict.get(w) || 1;
+    const shared = commonPrefixLen(normInput, normW);
+    const sharedRatio = shared / Math.max(normInput.length, normW.length);
+
+    // Diakritikų bonus — jei normalizuoti žodžiai identiški
+    const isDiacriticFix = (normInput === normW);
+    const diacriticBonus = isDiacriticFix ? -5000 : 0;
+
+    // Baudos jei per mažai sutampa pradžia
+    const prefixPenalty = sharedRatio < 0.5 ? 8000 : 0;
+
+    // Baudos jei žodis ilgesnis nei 7 simboliai ir dist > 1 (rizikingas keitimas)
+    const lengthPenalty = (inputLen > 7 && dist > 1 && !isDiacriticFix) ? 5000 : 0;
+
+    const score = dist * 10000 - Math.log(freq) * 10 + diacriticBonus + prefixPenalty + lengthPenalty;
+    results.push({ word: w, dist, freq, score, isDiacriticFix });
   }
 
   return results
     .sort((a, b) => a.score - b.score)
     .slice(0, topN);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SPRENDIMAS: ar auto-taisyti žodį?
+// ═══════════════════════════════════════════════════════════════
+
+function shouldAutoCorrect(inputWord, bestCandidate) {
+  if (!bestCandidate) return false;
+
+  const normInput = normalize(inputWord);
+  const normCand = normalize(bestCandidate.word);
+
+  // 1. Visada taisyti jei tai tik diakritikų klaida (as→aš, einu→einu)
+  if (bestCandidate.isDiacriticFix) return true;
+
+  // 2. Niekada keisti žodį kurio priešdėlis skiriasi
+  const inputPfx = getPrefix(normInput);
+  const candPfx = getPrefix(normCand);
+  if (inputPfx !== candPfx) return false;
+
+  // 3. Ilgi žodžiai (>8 simbolių) — tik jei dist=1 ir geras prefix match
+  if (inputWord.length > 8 && bestCandidate.dist > 1) return false;
+
+  // 4. Žodžiai >5 simbolių — dist turi būti 1
+  if (inputWord.length > 5 && bestCandidate.dist > 1) return false;
+
+  // 5. Taisyti jei dist=1
+  if (bestCandidate.dist === 1) return true;
+
+  // 6. dist=2 — tik trumpiems žodžiams (<= 5 simbolių)
+  if (bestCandidate.dist === 2 && inputWord.length <= 5) return true;
+
+  return false;
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -664,7 +1101,7 @@ function findCandidates(inputWord, maxDist = 2, topN = 5) {
 function getPredictions(prefix, topN = 4) {
   const normPfx = normalize(prefix);
   return words
-    .filter(w => normalize(w).startsWith(normPfx) && w !== prefix)
+    .filter(w => normalize(w).startsWith(normPfx) && w !== prefix && w.length > normPfx.length)
     .sort((a, b) => (dict.get(b) || 0) - (dict.get(a) || 0))
     .slice(0, topN);
 }
@@ -674,7 +1111,7 @@ function getPredictions(prefix, topN = 4) {
 // ═══════════════════════════════════════════════════════════════
 
 let mode = 'autocorrect';
-let correctionMap = {}; // { originalWord: correctedWord }
+let correctionMap = {};
 let fixedCount = 0;
 let debugLog = [];
 
@@ -693,7 +1130,7 @@ function renderDebug() {
   const panel = document.getElementById('debug-panel');
   panel.innerHTML = debugLog.map(l =>
     `<div class="debug-line"><span class="key">${l.input}</span> → ${l.candidates.map(c =>
-      `<span class="dist">[d=${c.dist}]</span> ${c.word}`
+      `<span class="dist">[d=${c.dist}${c.isDiacriticFix?' diakr':''}]</span> ${c.word}`
     ).join(', ')}</div>`
   ).join('') || '<div class="debug-line">— nėra duomenų —</div>';
 }
@@ -704,8 +1141,7 @@ function analyzeText() {
   const correctedDiv = document.getElementById('corrected-output');
   debugLog = [];
 
-  // Padalinti į žodžius išsaugant pozicijas
-  const parts = text.split(/(\s+|[,\.!?;:–—]+)/);
+  const parts = text.split(/(\s+|[,\.!?;:\-–—\"\'„"]+)/);
   const wordParts = parts.map(p => ({
     text: p,
     isWord: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/.test(p)
@@ -728,6 +1164,7 @@ function analyzeText() {
     const inDict = dict.has(wl);
 
     if (inDict) {
+      // Žodis teisingas — NIEKADA nekeičiame
       okCount++;
       corrected.push(w);
       const tok = createToken(w, 'ok');
@@ -735,17 +1172,31 @@ function analyzeText() {
     } else {
       errCount++;
       const candidates = findCandidates(wl, 2, 5);
-
       debugLog.push({ input: w, candidates });
 
       if (candidates.length > 0 && (mode === 'autocorrect' || mode === 'both')) {
         const best = candidates[0];
-        const fixed = preserveCase(w, best.word);
-        correctionMap[w] = fixed;
-        fixedCount++;
-        corrected.push(fixed);
-        const tok = createToken(w, 'error', candidates.slice(0,3).map(c => c.word));
-        tokenContainer.appendChild(tok);
+        const autoFix = shouldAutoCorrect(wl, best);
+
+        if (autoFix) {
+          // Auto-taisome
+          const fixed = preserveCase(w, best.word);
+          correctionMap[w] = fixed;
+          fixedCount++;
+          corrected.push(fixed);
+          const tok = createToken(w, 'error', candidates.slice(0,3).map(c => c.word));
+          tokenContainer.appendChild(tok);
+        } else {
+          // Siūlome bet ne auto-taisome — rodome kaip "nežinomą" su siūlymais
+          corrected.push(w);
+          if (candidates.length > 0) {
+            const tok = createToken(w, 'unknown-suggest', candidates.slice(0,3).map(c => c.word));
+            tokenContainer.appendChild(tok);
+          } else {
+            const tok = createToken(w, 'unknown');
+            tokenContainer.appendChild(tok);
+          }
+        }
       } else {
         corrected.push(w);
         const tok = createToken(w, 'unknown');
@@ -759,6 +1210,17 @@ function analyzeText() {
   document.getElementById('stat-err').textContent = errCount;
   document.getElementById('stat-fix').textContent = fixedCount;
 
+  // Info row
+  const infoRow = document.getElementById('info-row');
+  const infoChip = document.getElementById('info-chip');
+  if (okCount + errCount > 0) {
+    infoRow.style.display = 'flex';
+    const pct = Math.round(okCount / (okCount + errCount) * 100);
+    infoChip.textContent = `${pct}% teisingi`;
+  } else {
+    infoRow.style.display = 'none';
+  }
+
   // Pataisytas tekstas
   const correctedText = corrected.join('');
   if (correctedText.trim() === '') {
@@ -766,7 +1228,7 @@ function analyzeText() {
   } else {
     let highlighted = corrected.map((p, i) => {
       const orig = parts[i] || '';
-      if (p !== orig && orig.trim()) {
+      if (p !== orig && orig.trim() && /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/.test(orig)) {
         return `<span class="changed">${p}</span>`;
       }
       return p;
@@ -779,6 +1241,9 @@ function analyzeText() {
 }
 
 function preserveCase(original, replacement) {
+  if (original === original.toUpperCase() && original.length > 1) {
+    return replacement.toUpperCase();
+  }
   if (original[0] === original[0].toUpperCase()) {
     return replacement[0].toUpperCase() + replacement.slice(1);
   }
@@ -787,14 +1252,20 @@ function preserveCase(original, replacement) {
 
 function createToken(word, type, suggestions = []) {
   const tok = document.createElement('div');
-  tok.className = `token ${type}`;
+  // unknown-suggest rodome kaip unknown vizualiai, bet su popup
+  const visualType = type === 'unknown-suggest' ? 'unknown' : type;
+  tok.className = `token ${visualType}`;
+  if (type === 'unknown-suggest') {
+    tok.style.cursor = 'pointer';
+    tok.title = 'Spustelėk siūlymams';
+  }
   tok.textContent = word;
 
-  if (type === 'error' && suggestions.length > 0) {
-    tok.addEventListener('click', () => {
-      // Uždaryti kitus popups
-      document.querySelectorAll('.token-popup').forEach(p => p.remove());
+  const hasSuggestions = (type === 'error' || type === 'unknown-suggest') && suggestions.length > 0;
 
+  if (hasSuggestions) {
+    tok.addEventListener('click', () => {
+      document.querySelectorAll('.token-popup').forEach(p => p.remove());
       const popup = document.createElement('div');
       popup.className = 'token-popup';
       suggestions.forEach(s => {
@@ -804,8 +1275,7 @@ function createToken(word, type, suggestions = []) {
         btn.onclick = (e) => {
           e.stopPropagation();
           const ta = document.getElementById('main-input');
-          // Pakeisti žodį tekste
-          const regex = new RegExp(`\\b${escapeRegex(word)}\\b`, 'g');
+          const regex = new RegExp(`(?<![a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ])${escapeRegex(word)}(?![a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ])`, 'g');
           ta.value = ta.value.replace(regex, preserveCase(word, s));
           popup.remove();
           analyzeText();
@@ -814,8 +1284,6 @@ function createToken(word, type, suggestions = []) {
       });
       tok.style.position = 'relative';
       tok.appendChild(popup);
-
-      // Uždaryti paspaudus kitur
       setTimeout(() => {
         document.addEventListener('click', () => popup.remove(), { once: true });
       }, 0);
@@ -830,7 +1298,7 @@ function escapeRegex(str) {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// LIVE SUGGESTIONS — paskutinis rašomas žodis
+// LIVE SUGGESTIONS
 // ═══════════════════════════════════════════════════════════════
 
 function updateLiveSuggestions() {
@@ -892,17 +1360,16 @@ function createSuggBtn(word, type, currentWord, textarea) {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// BALSO DIKTAVIMAS — Web Speech API
+// BALSO DIKTAVIMAS
 // ═══════════════════════════════════════════════════════════════
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition = null;
 let isListening = false;
-let finalTranscript = '';
 
-const voiceBar    = document.getElementById('voice-bar');
-const micBtn      = document.getElementById('mic-btn');
-const voiceStatus = document.getElementById('voice-status');
+const voiceBar     = document.getElementById('voice-bar');
+const micBtn       = document.getElementById('mic-btn');
+const voiceStatus  = document.getElementById('voice-status');
 const voiceInterim = document.getElementById('voice-interim');
 
 if (!SpeechRecognition) {
@@ -914,8 +1381,8 @@ if (!SpeechRecognition) {
 } else {
   recognition = new SpeechRecognition();
   recognition.lang = 'lt-LT';
-  recognition.continuous = true;      // Nepertraukia po pauzės
-  recognition.interimResults = true;  // Rodo tekstą kol dar kalba
+  recognition.continuous = true;
+  recognition.interimResults = true;
   recognition.maxAlternatives = 1;
 
   recognition.onstart = () => {
@@ -934,7 +1401,6 @@ if (!SpeechRecognition) {
     micBtn.textContent = '🎙';
     voiceStatus.textContent = 'Sustabdyta — paspausk vėl';
     voiceInterim.textContent = '';
-    // Paleidžia analizę kai baigiama
     analyzeText();
   };
 
@@ -955,7 +1421,6 @@ if (!SpeechRecognition) {
   recognition.onresult = (event) => {
     let interimText = '';
     let newFinal = '';
-
     for (let i = event.resultIndex; i < event.results.length; i++) {
       const transcript = event.results[i][0].transcript;
       if (event.results[i].isFinal) {
@@ -964,51 +1429,36 @@ if (!SpeechRecognition) {
         interimText += transcript;
       }
     }
-
     if (newFinal) {
-      // Pridedame prie textarea
       const ta = document.getElementById('main-input');
       const existing = ta.value;
-      // Jei textarea tuščia arba baigiasi tarpu — pridedame tiesiai
       const needsSpace = existing.length > 0 && !existing.endsWith(' ') && !existing.endsWith('\n');
       ta.value = existing + (needsSpace ? ' ' : '') + newFinal.trim() + ' ';
-      // Perkelia kursorių į galą
       ta.selectionStart = ta.selectionEnd = ta.value.length;
-      // Paleidžia autocorrect
       clearTimeout(debounceTimer);
       analyzeText();
     }
-
-    // Live preview
     voiceInterim.textContent = interimText ? `"${interimText}"` : '';
   };
 }
 
 function toggleVoice() {
   if (!recognition) return;
-
   if (isListening) {
     recognition.stop();
   } else {
-    // Naujam sesijai
     try {
       recognition.start();
     } catch(e) {
-      // Jei jau paleistas
       recognition.stop();
       setTimeout(() => recognition.start(), 300);
     }
   }
 }
 
-// Sustabdo diktavimą jei paspaudžiama kitur (UX)
 document.getElementById('main-input').addEventListener('focus', () => {
-  if (isListening) {
-    recognition.stop();
-  }
+  if (isListening) recognition.stop();
 });
-
-
 
 const ta = document.getElementById('main-input');
 let debounceTimer;
@@ -1022,7 +1472,6 @@ ta.addEventListener('input', () => {
 ta.addEventListener('keyup', updateLiveSuggestions);
 ta.addEventListener('click', updateLiveSuggestions);
 
-// Pradinė būsena
 analyzeText();
 </script>
 
